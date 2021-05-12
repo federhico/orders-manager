@@ -1,6 +1,7 @@
-import { Orders } from "../core/models/orders";
+import { Orders } from "../core/models/Orders"
 
-export const OrderMocks: Orders[]= [
+
+export const OrderMocks: Orders[] =  [
     {
         id: "001",
         title: "my beautifull order",

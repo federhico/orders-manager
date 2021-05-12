@@ -14,8 +14,6 @@ export class FiltersComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngOnChanges(){
-    console.log(this.filters)
-  }
+ 
 
 }
