@@ -2,9 +2,8 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { FiltersComponent } from 'src/app/core/components/filters/filters.component';
-import { SearchBoxComponent } from 'src/app/core/components/search-box/search-box.component';
-import { OrderListComponent } from 'src/app/core/components/order-list/order-list.component';
+import { CoreModule } from 'src/app/core/core.module';
+
 
 
 
@@ -16,9 +15,8 @@ import { OrderListComponent } from 'src/app/core/components/order-list/order-lis
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    FiltersComponent,
-    SearchBoxComponent,
-    OrderListComponent 
+    CoreModule
+    
       
   ],
   exports:[DashboardComponent],
