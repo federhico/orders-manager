@@ -13,6 +13,7 @@ import { OrderListComponent } from './components/order-list/order-list.component
     CommonModule
   ],
   exports: [SearchBoxComponent, FiltersComponent, OrderListComponent],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class CoreModule { }
