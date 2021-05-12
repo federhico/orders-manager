@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { FiltersComponent } from './filters/filters.component';
+import { FiltersComponent } from '../../core/components/filters/filters.component';
+import { SearchBoxComponent } from 'src/app/core/components/search-box/search-box.component';
+
 
 
 
@@ -11,9 +13,11 @@ import { FiltersComponent } from './filters/filters.component';
   declarations: [DashboardComponent, FiltersComponent],
   imports: [
     CommonModule,
-    DashboardRoutingModule,    
+    DashboardRoutingModule,
+        
   ],
   exports:[DashboardComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
  
 })
 export class DashboardModule { }

@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
 { path: 'dashboard', 
-loadChildren: () => import('./pages/components/dashboard/dashboard.module').
+loadChildren: () => import('./pages/dashboard/dashboard.module').
 then(m => m.DashboardModule) },
   {
     path: '',
