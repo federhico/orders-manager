@@ -16,12 +16,12 @@ import { CoreModule } from 'src/app/core/core.module';
     CommonModule,
     DashboardRoutingModule,
     CoreModule
-    
-      
-  ],
-  exports:[DashboardComponent],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 
- 
+
+  ],
+  exports: [DashboardComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
+
 })
 export class DashboardModule { }

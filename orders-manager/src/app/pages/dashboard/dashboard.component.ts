@@ -8,16 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  filters: string[] = ['Recently Added','Favorites','Completed','Draft','Deleted','Shared'];
-  
+  filters: string[] = ['Recently Added', 'Favorites', 'Completed', 'Draft', 'Deleted', 'Shared'];
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  addToggleHandled(){
-    null;
+  addToggleHandled(): void {
+    return;
   }
 
 }

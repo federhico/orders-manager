@@ -10,9 +10,9 @@ import { Orders } from '../../models/Orders';
 export class OrderListComponent implements OnInit {
 
   // @Input() items: Orders[];
-  items: Orders[]
+  items: Orders[];
 
-  constructor() { 
+  constructor() {
     this.items = OrderMocks;
   }
 

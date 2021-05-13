@@ -9,10 +9,10 @@ import { Component, Input, NgModule, OnInit } from '@angular/core';
 export class SearchBoxComponent implements OnInit {
 
 
-  @Input() textDisplayed: string; 
+  @Input() textDisplayed: string;
 
-  constructor() { 
-    
+  constructor() {
+
   }
 
   ngOnInit(): void {

@@ -1,5 +1,5 @@
-import { IDestinationCordinates } from "./IDestinantionCordinates";
-import { IUserInterface } from "./ISender";
+import { IDestinationCordinates } from './IDestinantionCordinates';
+import { IUserInterface } from './ISender';
 
 export class Orders {
     id: string;
