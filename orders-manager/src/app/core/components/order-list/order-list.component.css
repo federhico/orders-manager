@@ -1,0 +1,21 @@
+.list-group-item{
+    padding-top: 2rem;
+}
+
+.list-group{
+    padding-block: 2rem;
+}
+
+.dropdown-menu{
+    border: transparent;
+    border-radius: 100$;
+}
+
+.dropdown-toggle{
+    border-radius: 100%;
+}
+
+.greyned{   
+    color: grey;
+}
+

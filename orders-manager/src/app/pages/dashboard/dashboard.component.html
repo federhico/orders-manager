@@ -1,0 +1,13 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <h1 class="col-md-8">Orders Manager</h1>
+      <app-search-box class="col-md-4 text-lg"></app-search-box>
+    </div>
+    <app-filters [filters]='filters'></app-filters>
+  </div>
+  <button type="button" name="addToggle" id="addToggle" (click)='addToggleHandled()'
+    class="btn btn-primary btn-block">New Order</button>
+  <br>
+  <app-order-list></app-order-list>
+</section>
