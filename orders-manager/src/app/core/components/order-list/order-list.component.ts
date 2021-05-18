@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { OrderMocks } from 'src/app/mocks/orders.mocks';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+
 import { Orders } from '../../models/Orders';
 
 @Component({
@@ -9,14 +9,13 @@ import { Orders } from '../../models/Orders';
 })
 export class OrderListComponent implements OnInit {
 
-  // @Input() items: Orders[];
-  items: Orders[];
+  @Input() orders: Orders[];
 
-  constructor() {
-    this.items = OrderMocks;
-  }
+
+  constructor() {  }
 
   ngOnInit(): void {
   }
+
 
 }

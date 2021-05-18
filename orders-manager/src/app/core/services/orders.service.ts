@@ -10,19 +10,11 @@ export class OrdersService {
   apiUrl: string;
 
   constructor(private httpClient: HttpClient) {
-    this.apiUrl = 'http://localhost:3001/orders:';
+    this.apiUrl = 'http://localhost:3001/orders';
   }
 
   get(): any{
-    let data: Orders[];
-    this.httpClient.get(this.apiUrl).subscribe((res: any) => {
-      if (res.status === 200){
-        data = res.data;
-      }
-      else{
-        data = [];
-      }
-      return data;
-    });
+    // --------------------------------------- Revisar como hacer la validación aca --------------------------------------
+    return this.httpClient.get(this.apiUrl);
   }
 }
