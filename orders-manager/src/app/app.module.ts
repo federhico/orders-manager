@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { routing } from './app.routing';
+import { AuthModule } from '@auth0/auth0-angular';
 
 
 
@@ -18,6 +19,10 @@ import { routing } from './app.routing';
     SharedModule,
     CoreModule,
     routing,
+    AuthModule.forRoot({
+      domain: 'ordersmanager.us.auth0.com',
+      clientId: 'lLoqKQBWhXXCETs8BI9L24yBr0B3UdaT'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent],
