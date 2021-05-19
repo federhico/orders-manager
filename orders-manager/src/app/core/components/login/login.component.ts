@@ -21,8 +21,5 @@ export class LoginComponent implements OnInit {
     this.authService.loginWithRedirect();
   }
 
-  logout(): void {
-    this.authService.logout({ returnTo: document.location.origin });
-  }
 
 }

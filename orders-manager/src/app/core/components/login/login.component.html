@@ -3,8 +3,8 @@
     <img class="card-img-top" src="https://borlabs.io/wp-content/uploads/2019/09/blog-wp-login.png" alt="">
     <div class="card-body">
       <h4 class="card-title">
-          <button *ngIf="(authService.isAuthenticated$ | async)" (click)="logout()" class="btn btn-secondary">
-            Log out
+          <button *ngIf="!(authService.isAuthenticated$ | async)" (click)="loginWithRedirect()" class="btn btn-primary">
+            Login
           </button>
       </h4>
     </div>

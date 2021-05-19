@@ -26,5 +26,8 @@ export class AppComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     });
+    this.authService.user$.subscribe((res) => {
+      console.log(res);
+    });
   }
 }
