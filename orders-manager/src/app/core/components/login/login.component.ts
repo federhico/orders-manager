@@ -10,11 +10,19 @@ import { DOCUMENT } from '@angular/common';
 export class LoginComponent implements OnInit {
 
   loggedIn: boolean;
-  constructor(@Inject(DOCUMENT) public document: Document, public authService: AuthService) { }
+  constructor(@Inject(DOCUMENT) public document: Document, public authService: AuthService) {
+  }
 
   ngOnInit(): void {
-    console.log(this.authService.isAuthenticated$);
-    console.log(this.authService.user$);
+
+  }
+
+  loginWithRedirect(): void {
+    this.authService.loginWithRedirect();
+  }
+
+  logout(): void {
+    this.authService.logout({ returnTo: document.location.origin });
   }
 
 }
