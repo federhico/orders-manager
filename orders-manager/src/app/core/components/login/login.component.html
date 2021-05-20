@@ -2,11 +2,13 @@
   <div class="card border-dark ">
     <img class="card-img-top" src="https://borlabs.io/wp-content/uploads/2019/09/blog-wp-login.png" alt="">
     <div class="card-body">
-      <h4 class="card-title">
-          <button *ngIf="!(authService.isAuthenticated$ | async)" (click)="loginWithRedirect()" class="btn btn-primary">
-            Login
+      <p class="card-title">
+          <button (click)="loginWithRedirect()" class="btn btn-primary">
+            Login with Google
           </button>
-      </h4>
+          <br>
+          <a (click)="loginWithRedirect()" href="">Don't you have an account? Register</a>
+      </p>
     </div>
   </div>
 </div>

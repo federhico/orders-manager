@@ -11,7 +11,7 @@ import { AuthService } from '@auth0/auth0-angular';
 export class AppComponent implements OnInit {
   title = 'orders-manager';
 
-  constructor (private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
 
   }
 
