@@ -6,6 +6,9 @@ const appRoutes: Routes = [
 { path: 'dashboard',
 loadChildren: () => import('./pages/dashboard/dashboard.module').
 then(m => m.DashboardModule) },
+{ path: 'orderForm',
+loadChildren: () => import('./pages/order-form/order-form.module').
+then(m => m.OrderFormModule) },
   {
     path: '',
     redirectTo: 'dashboard',

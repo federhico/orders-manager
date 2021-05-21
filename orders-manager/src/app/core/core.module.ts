@@ -3,16 +3,17 @@ import { CommonModule } from '@angular/common';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
+import { OrderFormComponent } from './components/order-form/order-form.component';
 
 
 
 @NgModule({
   declarations: [
-    SearchBoxComponent, FiltersComponent, OrderListComponent],
+    SearchBoxComponent, FiltersComponent, OrderListComponent, OrderFormComponent],
   imports: [
     CommonModule
   ],
-  exports: [SearchBoxComponent, FiltersComponent, OrderListComponent],
+  exports: [SearchBoxComponent, FiltersComponent, OrderListComponent, OrderFormComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
 })

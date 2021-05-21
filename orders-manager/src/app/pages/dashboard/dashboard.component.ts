@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,13 +12,13 @@ export class DashboardComponent implements OnInit {
   filters: string[] = ['Recently Added', 'Favorites', 'Completed', 'Draft', 'Deleted', 'Shared'];
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
   addToggleHandled(): void {
-    return;
+     this.router.navigate(['orderForm']);
   }
 
 }
