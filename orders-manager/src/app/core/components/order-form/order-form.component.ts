@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Orders } from '../../models/Orders';
 
 @Component({
   selector: 'app-order-form-s',
@@ -8,15 +9,59 @@ import { FormGroup } from '@angular/forms';
 })
 export class OrderFormComponent implements OnInit {
 
+  @Input() order: Orders =  {
+    id: '',
+    title: '',
+    description: '',
+    status: '',
+    sender: {
+        id: 0,
+        name: ''
+    },
+    destinationAddress: '',
+    destinationCity: '',
+    destinationCountry: '',
+    destinationCoordinates: {
+        lat: 0,
+        long: 0
+    },
+    price: 0,
+    taxApplied: 0,
+    weight: 0,
+    messureUnit: '',
+    createdOn: ''
+};
 
   regForm: FormGroup;
   submitted = false;
-  status: string[];
-  mUnit: string[];
+  status: string[] = ['Hold On', 'Urgent'];
+  mUnit: string[] = ['KG', 'LB'];
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder // , private orderService: OrdersService
+    ) { }
 
   ngOnInit(): void {
+    this.regForm = this.formBuilder.group({
+        title: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+        price: ['', [Validators.required]],
+        tax: ['', [Validators.required]],
+        weight: ['', [Validators.required]],
+        mUnit: ['', [Validators.required]],
+        status: ['', [Validators.required]],
+        destAdress: ['', [Validators.required]],
+        destCity: ['', [Validators.required]],
+        destCountry: ['', [Validators.required]]
+      });
+  }
+
+  submit(): void {
+    if(!this.regForm.invalid){
+      console.log('Valid');
+      // this.orderService.post(order);
+      return;
+    }
+    console.log('Invalid');
   }
 
 }

@@ -21,4 +21,13 @@ export class DashboardComponent implements OnInit {
      this.router.navigate(['orderForm']);
   }
 
+  editItem(item: any): void {
+    // Renderizar el order-form Component
+    this.router.navigate(['orderForm']);
+  }
+
+  deleteItem(item: any): void{
+    return;
+  }
+
 }

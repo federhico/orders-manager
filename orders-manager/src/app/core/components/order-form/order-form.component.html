@@ -1,15 +1,14 @@
 <div class="containter">
   <div class="row">
     <div class='centered col-md-12'>
-      <form>
+      <form [formGroup]='regForm'>
         <!--TITLE-->
         <div class="form-group row">
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="title">Title<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" formControlName="title" [ngClass]="{'is-invalid': (regForm.controls.title.touched || submitted)
+            <input [(ngModel)]='order.title'  type="text" class="form-control" formControlName="title" [ngClass]="{'is-invalid': (regForm.controls.title.touched || submitted)
                   && regForm.controls.title.errors}" />
-
             <span class="text-danger"
               *ngIf="(regForm.controls.title.touched || submitted) && regForm.controls.title.errors?.required">
               Requiered
@@ -21,9 +20,8 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="description">Description<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" formControlName="description" [ngClass]="{'is-invalid': (regForm.controls.description.touched || submitted)
+            <input [(ngModel)]='order.description' type="text" class="form-control" formControlName="description" [ngClass]="{'is-invalid': (regForm.controls.description.touched || submitted)
                   && regForm.controls.description.errors}" />
-
             <span class="text-danger"
               *ngIf="(regForm.controls.description.touched || submitted) && regForm.controls.description.errors?.required">
               Requiered
@@ -33,10 +31,10 @@
 
         <!--STATUS-->
         <div class="form-group row">
-          <label class="col-form-label col-sm-2 col-sm-offset-2" for="Status">Status<span
+          <label class="col-form-label col-sm-2 col-sm-offset-2" for="status">Status<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <select name="status" class="form-control" formControlName="status" [ngClass]="{'is-invalid': (regForm.controls.status.touched || submitted)
+            <select  [(ngModel)]='order.status' name="status" class="form-control" formControlName="status" [ngClass]="{'is-invalid': (regForm.controls.status.touched || submitted)
                   && regForm.controls.status.errors}">
               <option *ngFor="let opt of status">
                 ‌{{ opt }}
@@ -54,7 +52,7 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="destAdress">Destination Adress<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" formControlName="destAdress" [ngClass]="{'is-invalid': (regForm.controls.destAdress.touched || submitted)
+            <input [(ngModel)]='order.destinationAddress' type="text" class="form-control" formControlName="destAdress" [ngClass]="{'is-invalid': (regForm.controls.destAdress.touched || submitted)
                   && regForm.controls.destAdress.errors}" />
 
             <span class="text-danger"
@@ -69,7 +67,7 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="destCity">Destination City<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" formControlName="destCity" [ngClass]="{'is-invalid': (regForm.controls.destCity.touched || submitted)
+            <input [(ngModel)]='order.destinationCity' type="text" class="form-control" formControlName="destCity" [ngClass]="{'is-invalid': (regForm.controls.destCity.touched || submitted)
                   && regForm.controls.destCity.errors}" />
 
             <span class="text-danger"
@@ -81,14 +79,14 @@
 
         <!--Destination Country-->
         <div class="form-group row">
-          <label class="col-form-label col-sm-2 col-sm-offset-2" for="destcountry">Destination Country<span
+          <label class="col-form-label col-sm-2 col-sm-offset-2" for="destCountry">Destination Country<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" formControlName="destcountry" [ngClass]="{'is-invalid': (regForm.controls.destcountry.touched || submitted)
-                  && regForm.controls.destcountry.errors}" />
+            <input [(ngModel)]='order.destinationCountry' type="text" class="form-control" formControlName="destCountry" [ngClass]="{'is-invalid': (regForm.controls.destCountry.touched || submitted)
+                  && regForm.controls.destCountry.errors}" />
 
             <span class="text-danger"
-              *ngIf="(regForm.controls.destcountry.touched || submitted) && regForm.controls.destcountry.errors?.required">
+              *ngIf="(regForm.controls.destCountry.touched || submitted) && regForm.controls.destCountry.errors?.required">
               Requiered
             </span>
           </div>
@@ -99,7 +97,7 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="price">Price: $<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input type="number" class="form-control" formControlName="price" [ngClass]="{'is-invalid': (regForm.controls.price.touched || submitted)
+            <input [(ngModel)]='order.price' type="number" class="form-control" formControlName="price" [ngClass]="{'is-invalid': (regForm.controls.price.touched || submitted)
                   && regForm.controls.price.errors}" />
 
             <span class="text-danger"
@@ -114,7 +112,7 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="tax">TAX: $<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input type="number" class="form-control" formControlName="tax" [ngClass]="{'is-invalid': (regForm.controls.tax.touched || submitted)
+            <input [(ngModel)]='order.taxApplied' type="number" class="form-control" formControlName="tax" [ngClass]="{'is-invalid': (regForm.controls.tax.touched || submitted)
                   && regForm.controls.tax.errors}" />
 
             <span class="text-danger"
@@ -129,7 +127,7 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="weight">Weight<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input type="number" class="form-control" formControlName="weight" [ngClass]="{'is-invalid': (regForm.controls.weight.touched || submitted)
+            <input [(ngModel)]='order.weight' type="number" class="form-control" formControlName="weight" [ngClass]="{'is-invalid': (regForm.controls.weight.touched || submitted)
                   && regForm.controls.weight.errors}" />
 
             <span class="text-danger"
@@ -144,7 +142,7 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="mUnit">Meassure Unit<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <select name="mUnit" class="form-control" formControlName="mUnit" [ngClass]="{'is-invalid': (regForm.controls.mUnit.touched || submitted)
+            <select [(ngModel)]='order.messureUnit' name="mUnit" class="form-control" formControlName="mUnit" [ngClass]="{'is-invalid': (regForm.controls.mUnit.touched || submitted)
                   && regForm.controls.mUnit.errors}">
               <option *ngFor="let opt of mUnit">
                 ‌{{ opt }}
@@ -155,6 +153,12 @@
               Requiered
             </span>
           </div>
+        </div>
+
+        <div class="form-group row justify-content-center">
+          <button class="btn btn-secondary col-md-3">Cancel</button>
+          &nbsp;
+          <button type="submit" class="btn btn-primary col-md-3" (click)='submit()'>Create</button>
         </div>
       </form>
     </div>
