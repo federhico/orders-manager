@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Orders } from '../../models/Orders';
 
 @Component({
@@ -9,7 +10,7 @@ import { Orders } from '../../models/Orders';
 })
 export class OrderFormComponent implements OnInit {
 
-  @Input() order: Orders =  {
+  order: Orders =  {
     id: '',
     title: '',
     description: '',
@@ -37,7 +38,8 @@ export class OrderFormComponent implements OnInit {
   status: string[] = ['Hold On', 'Urgent'];
   mUnit: string[] = ['KG', 'LB'];
 
-  constructor(private formBuilder: FormBuilder // , private orderService: OrdersService
+  constructor(private formBuilder: FormBuilder,
+              private activeRoute: ActivatedRoute // , private orderService: OrdersService
     ) { }
 
   ngOnInit(): void {
@@ -53,10 +55,14 @@ export class OrderFormComponent implements OnInit {
         destCity: ['', [Validators.required]],
         destCountry: ['', [Validators.required]]
       });
+    const id = this.activeRoute.snapshot.params;
+    if (id !== {}){
+      // orders = this.orderService.getOne(id)
+      }
   }
 
   submit(): void {
-    if(!this.regForm.invalid){
+    if (!this.regForm.invalid){
       console.log('Valid');
       // this.orderService.post(order);
       return;

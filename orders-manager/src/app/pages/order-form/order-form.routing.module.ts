@@ -8,6 +8,10 @@ const routes: Routes = [
   {
     path: '',
     component: OrderFormComponent
+  },
+  {
+    path: ':id',
+    component: OrderFormComponent
   }
 ];
 
