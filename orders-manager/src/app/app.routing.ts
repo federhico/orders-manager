@@ -9,6 +9,9 @@ const appRoutes: Routes = [
 { path: 'dashboard',
 loadChildren: () => import('./pages/dashboard/dashboard.module').
 then(m => m.DashboardModule), canActivate: [AuthGuard ] },
+{ path: 'profile',
+loadChildren: () => import('./pages/profile/profile.module').
+then(m => m.ProfileModule), canActivate: [AuthGuard] },
 { path: 'login', component: LoginComponent },
   {
     path: '',
