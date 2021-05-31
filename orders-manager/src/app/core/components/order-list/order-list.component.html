@@ -1,11 +1,11 @@
 <div class="container-fluid">
     <ul class="list-group block">
-        <li class="list-group-item" *ngFor='let item of items'>
+        <li class="list-group-item" *ngFor='let item of orders'>
             <div class="row">
                 <a class="col-md-1"><i class="fas fa-star greyned"></i></a>
                 <div class="col-md-7 text-left">
-                    <b>{{item.title | titlecase}}</b>                    
-                </div>                
+                    <b>{{item.title | titlecase}}</b>
+                </div>
                 <div class="col-md-1">
                     <p class="greyned">Date created</p>
                     <b>{{item.createdOn}}</b>

@@ -4,6 +4,8 @@ import { SearchBoxComponent } from './components/search-box/search-box.component
 import { FiltersComponent } from './components/filters/filters.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { LoginComponent } from './components/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -11,7 +13,8 @@ import { LoginComponent } from './components/login/login.component';
   declarations: [
     SearchBoxComponent, FiltersComponent, OrderListComponent, LoginComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   exports: [SearchBoxComponent, FiltersComponent, OrderListComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
