@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -10,7 +11,8 @@ import { OrderListComponent } from './components/order-list/order-list.component
   declarations: [
     SearchBoxComponent, FiltersComponent, OrderListComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   exports: [SearchBoxComponent, FiltersComponent, OrderListComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
