@@ -5,7 +5,6 @@
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -15,6 +14,13 @@
           <a class="nav-link" href="/dashboard">Dashboard</a>
         </li>
       </ul>
+    </div>
+    <div class="logged  text-right align-items-left" *ngIf= 'authService.user$ | async as user' >
+      <img src="{{user.picture}}" alt="Foto">
+      &nbsp;
+      <p>{{user.given_name | titlecase}} {{user.family_name | titlecase}}</p>
+      &nbsp;
+      <button type="button" class="btn btn-secondary" (click)='logout()'>Log Out</button>
     </div>
   </nav>
 </header>
