@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { IUser } from 'src/app/core/models/IUser';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-profile',
@@ -16,16 +17,18 @@ export class ProfileComponent implements OnInit {
   adressForm: FormGroup;
   formEdit: FormGroup;
   submitted = false;
+  editing = false;
 
   constructor(private authService: AuthService,
               private modalService: NgbModal,
-              private formBuilder: FormBuilder ) { }
+              private formBuilder: FormBuilder,
+              ) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe((res: any) =>
     {
       this.user = {
-        adress: [ '' ],
+        adress: [ 'One', 'Two'],
         email: res.email,
         name: res.name,
         phone: '',
@@ -47,6 +50,19 @@ export class ProfileComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  editUserToggle(): void {
+    this.editing = !this.editing;
+    this.formEdit = this.formBuilder.group({
+      phone: [this.user.phone, [ Validators.required]],
+      adresses: [this.user.adress]
+    });
+  }
+
+  saveChanges(): void {
+    this.editUserToggle();
+    return;
+  }
+
   addAdressToggle(): void{
     this.submitted = true;
     console.log(this.adressForm.invalid);
@@ -55,7 +71,7 @@ export class ProfileComponent implements OnInit {
     if (this.adressForm.invalid) {
       return;
     }
-    this.user.adress.push(this.adressForm.controls.adress.value);
+    this.user.adress.push(this.adressForm.controls.adress.value);  // Insert in DB || Put DB en el suscribe
     this.modalService.dismissAll();
   }
 

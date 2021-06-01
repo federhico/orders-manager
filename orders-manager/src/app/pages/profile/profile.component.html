@@ -1,13 +1,13 @@
 <div class="container">
   <h1 class='text-center'>Profile Settings</h1>
-  <div class="row">
-    <div class="card col-md-4" style="width: 18rem;">
+  <div class="row justify-content-center" *ngIf='user'>
+    <div class="card col-sm-12 col-md-4" style="width: 18rem;">
       <img class="card-img-top" src="{{user.picture}}" alt="User Img">
       <div class="card-body text-center">
         <h5 class="card-title">{{user.name}}</h5>
       </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 col-sm-12">
       <div class="card mb-3">
         <div class="card-body">
           <div class="row">
@@ -26,66 +26,84 @@
             <div class="col-sm-9 text-secondary">
               {{user.email}}
             </div>
+
           </div>
           <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">Phone</h6>
+          <form [formGroup]='formEdit'>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Phone</h6>
+              </div>
+              <div class="col-sm-9 text-secondary" *ngIf="!editing">
+                {{user.phone}}
+              </div>
+              <div class="form-group col-sm-9 " *ngIf="editing">
+                <input type="text" class="form-control col-sm-9" formControlName='phone' placeholder="{{user.phone}}">
+              </div>
             </div>
-            <div class="col-sm-9 text-secondary">
-              {{user.phone}}
+
+            <hr>
+            <div *ngFor='let adress of user.adress; let i = index'>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Address {{i+1}} </h6>
+                </div>
+                <div class="col-sm-9 text-secondary" *ngIf='!editing'>
+                  {{adress}}
+                </div>
+                <div class="form-group col-sm-9" *ngIf="editing">
+                  <input type="text" class="form-control " formControlName='adress{{i}}' placeholder="{{user.adress[i]}}">
+                </div>
+              </div>
+              <hr>
             </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">Address</h6>
+
+            <div class="row justify-content-evenly" *ngIf="!editing">
+              <div class="col-sm-3">
+                <a class="btn btn-info " type="button" data-toggle="modal" (click)="open(adressModal)"
+                  data-target="#newAdressModal">New Adress <i class="fas fa-plus"></i></a>
+              </div>
+              <div class="col-sm-3">
+                <a class="btn btn-info" (click)='editUserToggle()'>Edit</a>
+              </div>
             </div>
-            <div class="col-sm-9 text-secondary">
-              {{user.adress}}
+            <div class="row justify-content-center" *ngIf="editing">
+              <a class="btn btn-secondary col-sm-5 " type="submit" (click)='editUserToggle()'>Discard</a>
+              &nbsp;
+              <a class="btn btn-primary col-sm-5" (click)='saveChanges()'>Save</a>
             </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-11 align-items-right">
-              <a class="btn btn-info " type="button" data-toggle="modal" (click)="open(mymodal)"
-                data-target="#newAdressModal">New Adress <i class="fas fa-plus"></i></a>
-            </div>
-            <div class="col-sm-1">
-              <a class="btn btn-info">Edit</a>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Adress Modal -->
-  <ng-template #mymodal let-modal>
-    <div class="modal-content ">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Adress:</h5>
-        <button type="button" class="close btn" data-dismiss="modal" aria-label="Close" (click)='close()'>
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="">
-          <div class="form-group" [formGroup]='adressForm'>
-            <label for="newAdress">Adress:</label>
-            <input type="text" class="form-control" formControlName="adress"
-              placeholder="New Adress" [ngClass]="{'is-invalid': (adressForm.controls.adress.touched || submitted)
-              && adressForm.controls.adress.errors}">
-              <span class="text-danger" *ngIf="(adressForm.controls.adress.touched || submitted)
-                        && adressForm.controls.adress.errors?.required">
-                    Requiered.
-                </span>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)='close()'>Close</button>
-        <button type="button" class="btn btn-primary" (click)='addAdressToggle()'>Save changes</button>
-      </div>
+<!-- Adress Modal -->
+<ng-template #adressModal let-modal>
+  <div class="modal-content ">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">New Adress:</h5>
+      <button type="button" class="close btn" data-dismiss="modal" aria-label="Close" (click)='close()'>
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-  </ng-template>
+    <div class="modal-body">
+      <form action="">
+        <div class="form-group" [formGroup]='adressForm'>
+          <label for="newAdress">Adress:</label>
+          <input type="text" class="form-control" formControlName="adress" placeholder="New Adress" [ngClass]="{'is-invalid': (adressForm.controls.adress.touched || submitted)
+              && adressForm.controls.adress.errors}">
+          <span class="text-danger" *ngIf="(adressForm.controls.adress.touched || submitted)
+                        && adressForm.controls.adress.errors?.required">
+            Requiered.
+          </span>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)='close()'>Close</button>
+      <button type="button" class="btn btn-primary" (click)='addAdressToggle()'>Save changes</button>
+    </div>
+  </div>
+</ng-template>
