@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Orders } from 'src/app/core/models/Orders';
 import { OrdersService } from 'src/app/core/services/orders.service';
 
@@ -14,21 +15,30 @@ export class DashboardComponent implements OnInit {
   orders: Orders[] = [];
 
 
-  constructor(public ordersService: OrdersService) { }
+  constructor(public ordersService: OrdersService,  private router: Router) { }
 
   ngOnInit(): void {
     this.getOrders();
   }
 
   addToggleHandled(): void {
-    return;
+    this.router.navigate(['orderForm']);
   }
 
   getOrders(): void {
-    this.ordersService.get().subscribe((res: any) =>{
+    this.ordersService.get().subscribe((res: any): void => {
       console.log(res);
       this.orders = res.data;
-    })
+    });
+  }
+
+  editItem(item: any): void {
+    // Renderizar el order-form Component
+    this.router.navigate(['orderForm/' + item.id]);
+  }
+
+  deleteItem(item: any): void{
+    return;
   }
 
 }

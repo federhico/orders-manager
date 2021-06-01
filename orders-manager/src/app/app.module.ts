@@ -7,12 +7,14 @@ import { SharedModule } from './shared/shared.module';
 import { routing } from './app.routing';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { OrderFormPageComponent } from './pages/order-form-page/order-form-page.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    OrderFormPageComponent,
   ],
   imports: [
     BrowserModule,
