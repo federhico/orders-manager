@@ -14,8 +14,9 @@ export class ProfileComponent implements OnInit {
 
 
   user: IUser;
-  adressForm: FormGroup;
+  addressForm: FormGroup;
   formEdit: FormGroup;
+  phone: string;
   submitted = false;
   editing = false;
 
@@ -28,10 +29,10 @@ export class ProfileComponent implements OnInit {
     this.authService.user$.subscribe((res: any) =>
     {
       this.user = {
-        adress: [ 'One', 'Two'],
+        address: [ 'One', 'Two'],
         email: res.email,
         name: res.name,
-        phone: '',
+        phone: '351',
         picture: res.picture
       };
     });
@@ -40,8 +41,8 @@ export class ProfileComponent implements OnInit {
 
   open(content: any): void {
     this.submitted = false;
-    this.adressForm = this.formBuilder.group({
-      adress: ['', [Validators.required]]
+    this.addressForm = this.formBuilder.group({
+      address: ['', [Validators.required]]
     });
     this.modalService.open(content);
   }
@@ -52,28 +53,31 @@ export class ProfileComponent implements OnInit {
 
   editUserToggle(): void {
     this.editing = !this.editing;
-    this.formEdit = this.formBuilder.group({
-      phone: [this.user.phone, [ Validators.required]],
-      adresses: [this.user.adress]
-    });
   }
 
   saveChanges(): void {
+    console.log(this.user);
     this.editUserToggle();
+
+
     return;
   }
 
-  addAdressToggle(): void{
+  addaddressToggle(): void{
     this.submitted = true;
-    console.log(this.adressForm.invalid);
-    console.log(this.adressForm.controls.adress);
+    console.log(this.addressForm.invalid);
+    console.log(this.addressForm.controls.address);
 
-    if (this.adressForm.invalid) {
+    if (this.addressForm.invalid) {
       return;
     }
-    this.user.adress.push(this.adressForm.controls.adress.value);  // Insert in DB || Put DB en el suscribe
+    this.user.address.push(this.addressForm.controls.address.value);  // Insert in DB || Put DB en el suscribe
     this.modalService.dismissAll();
   }
+
+  trackByFn(index: any, item: any): void {
+    return index;
+ }
 
 
 

@@ -29,7 +29,7 @@
 
           </div>
           <hr>
-          <form [formGroup]='formEdit'>
+
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Phone</h6>
@@ -37,22 +37,24 @@
               <div class="col-sm-9 text-secondary" *ngIf="!editing">
                 {{user.phone}}
               </div>
-              <div class="form-group col-sm-9 " *ngIf="editing">
-                <input type="text" class="form-control col-sm-9" formControlName='phone' placeholder="{{user.phone}}">
+              <div class="col-sm-9 text-secondary" *ngIf="editing">
+                <input type="number"  class='form-control' placeholder="{{user.phone}}" [(ngModel)]="user.phone">
               </div>
+
+
             </div>
 
             <hr>
-            <div *ngFor='let adress of user.adress; let i = index'>
+            <div *ngFor='let address of user.address; let i = index; trackBy:trackByFn' >
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Address {{i+1}} </h6>
                 </div>
                 <div class="col-sm-9 text-secondary" *ngIf='!editing'>
-                  {{adress}}
+                  {{address}}
                 </div>
-                <div class="form-group col-sm-9" *ngIf="editing">
-                  <input type="text" class="form-control " formControlName='adress{{i}}' placeholder="{{user.adress[i]}}">
+                <div class="col-sm-9 text-secondary" *ngIf='editing'>
+                  <input type="text" class='form-control' [(ngModel)]="user.address[i]" >
                 </div>
               </div>
               <hr>
@@ -60,8 +62,8 @@
 
             <div class="row justify-content-evenly" *ngIf="!editing">
               <div class="col-sm-3">
-                <a class="btn btn-info " type="button" data-toggle="modal" (click)="open(adressModal)"
-                  data-target="#newAdressModal">New Adress <i class="fas fa-plus"></i></a>
+                <a class="btn btn-info " type="button" data-toggle="modal" (click)="open(addressModal)"
+                  data-target="#newaddressModal">New address <i class="fas fa-plus"></i></a>
               </div>
               <div class="col-sm-3">
                 <a class="btn btn-info" (click)='editUserToggle()'>Edit</a>
@@ -72,30 +74,29 @@
               &nbsp;
               <a class="btn btn-primary col-sm-5" (click)='saveChanges()'>Save</a>
             </div>
-          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Adress Modal -->
-<ng-template #adressModal let-modal>
+<!-- address Modal -->
+<ng-template #addressModal let-modal>
   <div class="modal-content ">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">New Adress:</h5>
+      <h5 class="modal-title" id="exampleModalLabel">New address:</h5>
       <button type="button" class="close btn" data-dismiss="modal" aria-label="Close" (click)='close()'>
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <form action="">
-        <div class="form-group" [formGroup]='adressForm'>
-          <label for="newAdress">Adress:</label>
-          <input type="text" class="form-control" formControlName="adress" placeholder="New Adress" [ngClass]="{'is-invalid': (adressForm.controls.adress.touched || submitted)
-              && adressForm.controls.adress.errors}">
-          <span class="text-danger" *ngIf="(adressForm.controls.adress.touched || submitted)
-                        && adressForm.controls.adress.errors?.required">
+        <div class="form-group" [formGroup]='addressForm'>
+          <label for="newaddress">address:</label>
+          <input type="text" class="form-control" formControlName="address" placeholder="New address" [ngClass]="{'is-invalid': (addressForm.controls.address.touched || submitted)
+              && addressForm.controls.address.errors}">
+          <span class="text-danger" *ngIf="(addressForm.controls.address.touched || submitted)
+                        && addressForm.controls.address.errors?.required">
             Requiered.
           </span>
         </div>
@@ -103,7 +104,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)='close()'>Close</button>
-      <button type="button" class="btn btn-primary" (click)='addAdressToggle()'>Save changes</button>
+      <button type="button" class="btn btn-primary" (click)='addaddressToggle()'>Save changes</button>
     </div>
   </div>
 </ng-template>
