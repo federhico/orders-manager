@@ -4,6 +4,13 @@
     border: transparent;
 }
 
+.search{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .greyned{
     color: grey;
 }

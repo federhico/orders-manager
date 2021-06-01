@@ -5,7 +5,10 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { routing } from './app.routing';
+import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OrderFormComponent } from './pages/order-form/order-form.component';
+
 
 
 
@@ -20,8 +23,29 @@ import { OrderFormComponent } from './pages/order-form/order-form.component';
     SharedModule,
     CoreModule,
     routing,
+    HttpClientModule,
+    AuthModule.forRoot({
+      domain: 'ordersmanager.us.auth0.com',
+      clientId: 'lLoqKQBWhXXCETs8BI9L24yBr0B3UdaT',
+      cacheLocation: 'localstorage',
+      useRefreshTokens: true,
+      responseType: 'token id_token',
+      audience: 'http://localhost:3001',
+      scope: 'read:current_user',
+      httpInterceptor: {
+        allowedList: [
+          {
+            uri: 'http://localhost:3001/*',
+            tokenOptions: {
+              audience: 'http://localhost:3001',
+              scope: 'read:current_user'
+            }
+          }
+        ]
+      }
+    })
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

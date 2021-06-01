@@ -1,3 +1,4 @@
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { OrderMocks } from 'src/app/mocks/orders.mocks';
 import { Orders } from '../../models/Orders';
@@ -9,17 +10,19 @@ import { Orders } from '../../models/Orders';
 })
 export class OrderListComponent implements OnInit {
 
-  // @Input() items: Orders[];
+  @Input() orders: Orders[];
   @Output() editItemEvent = new EventEmitter<any>();
   @Output() deleteItemEvent = new EventEmitter<any>();
   items: Orders[];
 
-  constructor() {
-    this.items = OrderMocks;
-  }
+
+
+  constructor() {  }
 
   ngOnInit(): void {
   }
+
+
 
   toggleEditHandled(item: any): void{
     this.editItemEvent.emit(item);
@@ -28,5 +31,6 @@ export class OrderListComponent implements OnInit {
   toggleRemoveHandled(item: any): void {
     this.deleteItemEvent.emit(item);
   }
+
 
 }

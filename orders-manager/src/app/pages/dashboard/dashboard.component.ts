@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Orders } from 'src/app/core/models/Orders';
+import { OrdersService } from 'src/app/core/services/orders.service';
 import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -10,11 +13,13 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   filters: string[] = ['Recently Added', 'Favorites', 'Completed', 'Draft', 'Deleted', 'Shared'];
+  orders: Orders[] = [];
 
+  constructor(public ordersService: OrdersService, private router: Router) { }
 
-  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.getOrders();
   }
 
   addToggleHandled(): void {
@@ -28,6 +33,13 @@ export class DashboardComponent implements OnInit {
 
   deleteItem(item: any): void{
     return;
+  }
+
+  getOrders(): void {
+    this.ordersService.get().subscribe((res: any) =>{
+      console.log(res);
+      this.orders = res.data;
+    })
   }
 
 }
