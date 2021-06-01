@@ -22,7 +22,7 @@ export const OrderMocks: Orders[] =  [
         taxApplied: 0,
         weight: 100,
         messureUnit: 'KG',
-        createdOn: '2021-05-06:00:000:00'
+        createdOn: '2021-05-06:00:00:00'
     },
     {
         id: '002',
@@ -44,7 +44,7 @@ export const OrderMocks: Orders[] =  [
         taxApplied: 0,
         weight: 150,
         messureUnit: 'KG',
-        createdOn: '2021-05-06:00:000:00'
+        createdOn: '2021-05-06:00:00:00'
     },
     {
         id: '003',
@@ -66,6 +66,6 @@ export const OrderMocks: Orders[] =  [
         taxApplied: 0,
         weight: 40,
         messureUnit: 'KG',
-        createdOn: '2021-05-06:00:000:00'
+        createdOn: '2021-05-06:00:00:00'
     }
 ];
