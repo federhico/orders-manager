@@ -26,6 +26,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
       clientId: 'lLoqKQBWhXXCETs8BI9L24yBr0B3UdaT',
       cacheLocation: 'localstorage',
       useRefreshTokens: true,
+      responseType: 'token id_token',
       audience: 'http://localhost:3001',
       scope: 'read:current_user',
       httpInterceptor: {
@@ -33,7 +34,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
           {
             uri: 'http://localhost:3001/*',
             tokenOptions: {
-              audience: 'http://localhost:3001/',
+              audience: 'http://localhost:3001',
               scope: 'read:current_user'
             }
           }
