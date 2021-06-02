@@ -37,8 +37,6 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['orderForm/' + item.id]);
   }
 
-  deleteItem(item: any): void{
-    return;
-  }
+
 
 }

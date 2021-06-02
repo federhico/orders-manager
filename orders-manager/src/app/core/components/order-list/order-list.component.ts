@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { OrderMocks } from 'src/app/mocks/orders.mocks';
 import { Orders } from '../../models/Orders';
+import { OrdersService } from '../../services/orders.service';
 
 @Component({
   selector: 'app-order-list',
@@ -15,7 +16,7 @@ export class OrderListComponent implements OnInit {
   items: Orders[];
 
 
-  constructor() {  }
+  constructor(private ordersService: OrdersService) {  }
 
   ngOnInit(): void {
   }
@@ -25,8 +26,17 @@ export class OrderListComponent implements OnInit {
   }
 
   toggleRemoveHandled(item: any): void {
-    this.deleteItemEvent.emit(item);
-  }
+    this.ordersService.delete(item._id).subscribe((res: Orders) => {
+      const findedItem = this.orders.find((findItem) => {
+        return findItem._id === item._id;
+      });
+      if (findedItem){
+        findedItem.status = 'Deleted';
+      }
+  }, (err: any) => {
+    console.log('Message: ' + err.message );
+  });
+}
 
 
 }

@@ -2,7 +2,8 @@ import { IDestinationCordinates } from './IDestinantionCordinates';
 import { IUserInterface } from './ISender';
 
 export class Orders {
-    id: string;
+    // tslint:disable-next-line: variable-name
+    _id: string;
     title: string;
     description: string;
     status: string;

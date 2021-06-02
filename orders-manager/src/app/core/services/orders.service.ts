@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpResponse } from '@angular/common/http';
 import { AuthService } from '@auth0/auth0-angular';
+import { Orders } from '../models/Orders';
+import { catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 
 @Injectable({
@@ -16,7 +19,34 @@ export class OrdersService {
   }
 
   get(): any{
-    // --------------------------------------- Revisar como hacer la validación aca --------------------------------------
     return this.httpClient.get(this.apiUrl);
+  }
+
+  getOne(id: any): any {
+    return this.httpClient.get(this.apiUrl, id);
+  }
+
+  post(item: Orders): any {
+    return this.httpClient.post(this.apiUrl, item);
+  }
+
+  put(item: Orders): any {
+    return this.httpClient.put(this.apiUrl, item);
+  }
+
+  delete(itemId: string): any {
+    return this.httpClient.delete(this.apiUrl + '/' + itemId).pipe(catchError(err => this.errorHandler(err)))
+    .subscribe((res: any) => {
+      return this.responseHandler(res);
+    } );
+  }
+
+  errorHandler(err: HttpEvent<any>): Observable<HttpEvent<any>> {
+    throw err;
+  }
+
+  responseHandler(res: any): Observable<Orders> {
+    const order: Orders = res.data2;
+    return of(order);
   }
 }

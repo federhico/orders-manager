@@ -3,7 +3,7 @@ import { Orders } from '../core/models/Orders';
 
 export const OrderMocks: Orders[] =  [
     {
-        id: '001',
+        _id: '001',
         title: 'my beautifull order',
         description: 'Something about my order',
         status: 'On Hold',
@@ -25,7 +25,7 @@ export const OrderMocks: Orders[] =  [
         createdOn: '2021-05-06:00:000:00'
     },
     {
-        id: '002',
+        _id: '002',
         title: 'my beautifull second order',
         description: 'Something about my second order',
         status: 'On Hold',
@@ -47,7 +47,7 @@ export const OrderMocks: Orders[] =  [
         createdOn: '2021-05-06:00:000:00'
     },
     {
-        id: '003',
+        _id: '003',
         title: 'my beautifull third order',
         description: 'Something about my third order',
         status: 'On Hold',

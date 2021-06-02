@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order-form-page',
@@ -7,11 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class OrderFormPageComponent implements OnInit {
 
-  @Input() title = 'New Order';
+  title: string;
 
-  constructor() { }
+  constructor(private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-  }
+    const id = this.activeRoute.snapshot.params;
+    console.log(id);
 
+    if (id !== {}){
+      this.title = 'Edit Order';
+    }
+  }
 }

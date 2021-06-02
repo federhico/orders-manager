@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Orders } from '../../models/Orders';
+import { OrdersService } from '../../services/orders.service';
 
 @Component({
   selector: 'app-order-form',
@@ -11,7 +12,7 @@ import { Orders } from '../../models/Orders';
 export class OrderFormComponent implements OnInit {
 
   order: Orders =  {
-    id: '',
+    _id: '',
     title: '',
     description: '',
     status: '',
@@ -39,25 +40,26 @@ export class OrderFormComponent implements OnInit {
   mUnit: string[] = ['KG', 'LB'];
 
   constructor(private formBuilder: FormBuilder,
-              private activeRoute: ActivatedRoute // , private orderService: OrdersService
+              private activeRoute: ActivatedRoute,
+              private orderService: OrdersService
     ) { }
 
   ngOnInit(): void {
     this.regForm = this.formBuilder.group({
-        title: ['', [Validators.required]],
-        description: ['', [Validators.required]],
-        price: ['', [Validators.required]],
-        tax: ['', [Validators.required]],
-        weight: ['', [Validators.required]],
-        mUnit: ['', [Validators.required]],
-        status: ['', [Validators.required]],
-        destAdress: ['', [Validators.required]],
-        destCity: ['', [Validators.required]],
-        destCountry: ['', [Validators.required]]
+        title: [[Validators.required]],
+        description: [ [Validators.required]],
+        price: [ [Validators.required]],
+        tax: [[Validators.required]],
+        weight: [ [Validators.required]],
+        mUnit: [ [Validators.required]],
+        status: [[Validators.required]],
+        destAdress: [[Validators.required]],
+        destCity: [[Validators.required]],
+        destCountry: [[Validators.required]]
       });
     const id = this.activeRoute.snapshot.params;
     if (id !== {}){
-      // orders = this.orderService.getOne(id)
+      this.order = this.orderService.getOne(id);
       }
   }
 
