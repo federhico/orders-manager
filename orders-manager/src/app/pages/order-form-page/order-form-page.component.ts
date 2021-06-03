@@ -8,16 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class OrderFormPageComponent implements OnInit {
 
-  title: string;
+  title = 'New Order';
 
   constructor(private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     const id = this.activeRoute.snapshot.params;
-    console.log(id);
-
-    if (id !== {}){
+    if (id.id !== undefined){
       this.title = 'Edit Order';
-    }
+      }
   }
 }

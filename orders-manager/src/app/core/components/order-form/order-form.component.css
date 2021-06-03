@@ -5,3 +5,8 @@
   margin: 0 auto;
   justify-content: center;
 }
+
+form{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}

@@ -23,7 +23,7 @@ export class OrdersService {
   }
 
   getOne(id: any): any {
-    return this.httpClient.get(this.apiUrl, id);
+    return this.httpClient.get(this.apiUrl + '/' +  id);
   }
 
   post(item: Orders): any {
@@ -31,14 +31,11 @@ export class OrdersService {
   }
 
   put(item: Orders): any {
-    return this.httpClient.put(this.apiUrl, item);
+    return this.httpClient.put(this.apiUrl + '/' + item._id , item);
   }
 
   delete(itemId: string): any {
-    return this.httpClient.delete(this.apiUrl + '/' + itemId).pipe(catchError(err => this.errorHandler(err)))
-    .subscribe((res: any) => {
-      return this.responseHandler(res);
-    } );
+    return this.httpClient.delete(this.apiUrl + '/' + itemId);
   }
 
   errorHandler(err: HttpEvent<any>): Observable<HttpEvent<any>> {

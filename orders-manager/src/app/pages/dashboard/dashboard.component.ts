@@ -27,14 +27,13 @@ export class DashboardComponent implements OnInit {
 
   getOrders(): void {
     this.ordersService.get().subscribe((res: any): void => {
-      console.log(res);
       this.orders = res.data;
     });
   }
 
   editItem(item: any): void {
     // Renderizar el order-form Component
-    this.router.navigate(['orderForm/' + item.id]);
+    this.router.navigate(['orderForm/' + item._id]);
   }
 
 
