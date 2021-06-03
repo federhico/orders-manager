@@ -13,12 +13,15 @@ export class OrderListComponent implements OnInit {
   @Input() orders: Orders[];
   @Output() editItemEvent = new EventEmitter<any>();
   @Output() deleteItemEvent = new EventEmitter<any>();
-  items: Orders[];
 
 
   constructor(private ordersService: OrdersService) {  }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(): void {
+    this.orders.sort((a: any) => a.status === 'Deleted' ? 0 : -1);
   }
 
   toggleEditHandled(item: any): void{

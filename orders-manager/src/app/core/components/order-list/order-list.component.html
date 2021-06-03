@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <ul class="list-group block">
-      <li class="list-group-item" *ngFor='let item of orders'>
+      <li class="list-group-item" *ngFor='let item of orders' [ngClass] ="{'deleted': item.status == 'Deleted'}" >
           <div class="row">
               <a class="col-md-1"><i class="fas fa-star greyned"></i></a>
               <div class="col-md-7 text-left">
