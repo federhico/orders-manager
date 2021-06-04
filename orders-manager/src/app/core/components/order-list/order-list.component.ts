@@ -20,8 +20,18 @@ export class OrderListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // tslint:disable-next-line: use-lifecycle-interface
   ngOnChanges(): void {
     this.orders.sort((a: any) => a.status === 'Deleted' ? 0 : -1);
+    this.orders.map((dateStr: Orders) => {
+      const date = dateStr.createdOn.substring(0, 10);
+      const time = dateStr.createdOn.substring(11, 18);
+      const millisecond = dateStr.createdOn.substring(19);
+      const validDate = date + 'T' + time + '.' + millisecond;
+      console.log(validDate);
+      return validDate;
+
+    });
   }
 
   toggleEditHandled(item: any): void{

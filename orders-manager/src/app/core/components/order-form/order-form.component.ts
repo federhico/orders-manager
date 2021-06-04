@@ -77,7 +77,7 @@ export class OrderFormComponent implements OnInit {
     if (!this.regForm.invalid) {
       if (this.id.id === undefined) {
         const date = new Date();
-        const stringDate = this.datePipe.transform(date, 'yyyy-MM-dd:hh:0mm:ss');
+        const stringDate = this.datePipe.transform(date, 'yyyy-MM-dd:hh:0ss:mm');
         if (stringDate) {
           this.order.createdOn = stringDate.toString();
         }
@@ -89,13 +89,14 @@ export class OrderFormComponent implements OnInit {
           this.router.navigate(['/dashboard']);
         });
       }
-      this.orderService.put(this.order).subscribe((res: any) => {
+      else{
+        this.orderService.put(this.order).subscribe((res: any) => {
         console.log(res);
 
         alert('Order Edited');
         this.router.navigate(['/dashboard']);
       });
-
+      }
     }
     else {
       alert('Please Fill all the From');
