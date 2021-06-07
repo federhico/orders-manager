@@ -1,33 +1,33 @@
 <div class="container-fluid">
-    <ul class="list-group block">
-        <li class="list-group-item" *ngFor='let item of orders'>
-            <div class="row">
-                <a class="col-md-1"><i class="fas fa-star greyned"></i></a>
-                <div class="col-md-7 text-left">
-                    <b>{{item.title | titlecase}}</b>
+  <ul class="list-group block">
+      <li class="list-group-item" *ngFor='let item of orders' [ngClass] ="{'deleted': item.status == 'Deleted'}" >
+          <div class="row">
+              <a class="col-md-1"><i class="fas fa-star greyned"></i></a>
+              <div class="col-md-7 text-left">
+                  <b>{{item.title | titlecase}}</b>
+              </div>
+              <div class="col-md-1">
+                  <p class="greyned">Date created</p>
+                  <b>{{item.createdOn | date}}</b>
+              </div>
+              <div class="col-md-1">
+                  <p class="greyned">Send By</p>
+                  <b>{{item.sender.name}}</b>
+              </div>
+              <div class="col-md-1">
+                  <p class="greyned">Status</p>
+                  <b>{{item.status}}</b>
+              </div>
+              <div class="btn-group col-md-1">
+                  <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h"></i>
+                  </button>
+                  <ul class="dropdown-menu text-center">
+                    <li><a class="dropdown-item" (click)='toggleEditHandled(item)'><i class="fas fa-pencil-alt"></i></a></li>
+                    <li><a class="dropdown-item" (click)='toggleRemoveHandled(item)'><i class="fas fa-trash"></i></a></li>
+                  </ul>
                 </div>
-                <div class="col-md-1">
-                    <p class="greyned">Date created</p>
-                    <b>{{item.createdOn}}</b>
-                </div>
-                <div class="col-md-1">
-                    <p class="greyned">Send By</p>
-                    <b>{{item.sender.name}}</b>
-                </div>
-                <div class="col-md-1">
-                    <p class="greyned">Status</p>
-                    <b>{{item.status}}</b>
-                </div>
-                <div class="btn-group col-md-1">
-                    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="fas fa-ellipsis-h"></i>
-                    </button>
-                    <ul class="dropdown-menu text-center">
-                      <li><a class="dropdown-item"><i class="fas fa-pencil-alt"></i></a></li>
-                      <li><a class="dropdown-item"><i class="fas fa-trash"></i></a></li>
-                    </ul>
-                  </div>
-            </div>
-        </li>
-    </ul>
+          </div>
+      </li>
+  </ul>
 </div>

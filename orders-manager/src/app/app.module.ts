@@ -7,14 +7,15 @@ import { SharedModule } from './shared/shared.module';
 import { routing } from './app.routing';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { OrderFormPageComponent } from './pages/order-form-page/order-form-page.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    OrderFormPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       clientId: 'lLoqKQBWhXXCETs8BI9L24yBr0B3UdaT',
       cacheLocation: 'localstorage',
       useRefreshTokens: true,
+      responseType: 'token id_token',
       audience: 'http://localhost:3001',
       scope: 'read:current_user',
       httpInterceptor: {
@@ -35,7 +37,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
           {
             uri: 'http://localhost:3001/*',
             tokenOptions: {
-              audience: 'http://localhost:3001/',
+              audience: 'http://localhost:3001',
               scope: 'read:current_user'
             }
           }

@@ -8,14 +8,16 @@
 
 .dropdown-menu{
     border: transparent;
-    border-radius: 100$;
 }
 
 .dropdown-toggle{
     border-radius: 100%;
 }
 
-.greyned{   
+.greyned{
     color: grey;
 }
 
+.deleted{
+  background-color: rgb(226, 173, 173);
+}
