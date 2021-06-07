@@ -8,6 +8,7 @@ import { routing } from './app.routing';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OrderFormPageComponent } from './pages/order-form-page/order-form-page.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -42,7 +43,8 @@ import { OrderFormPageComponent } from './pages/order-form-page/order-form-page.
           }
         ]
       }
-    })
+    }),
+    NgbModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }],
   bootstrap: [AppComponent],
