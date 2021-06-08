@@ -56,14 +56,18 @@ export class ProfileComponent implements OnInit {
   }
 
   saveChanges(): void {
-    console.log(this.user);
+    for (let i = 0; i < this.user.address.length; i++) {
+      if ( this.user.address[i] === '') {
+        this.user.address.splice( i, 1 );
+      }
+    }
     this.editUserToggle();
 
 
     return;
   }
 
-  addaddressToggle(): void{
+  addAddressToggle(): void{
     this.submitted = true;
     console.log(this.addressForm.invalid);
     console.log(this.addressForm.controls.address);
