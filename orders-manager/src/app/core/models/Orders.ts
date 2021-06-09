@@ -17,4 +17,5 @@ export class Orders {
     weight: number;
     messureUnit: string;
     createdOn: string;
+    favourite: boolean;
 }

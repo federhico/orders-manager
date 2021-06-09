@@ -33,7 +33,8 @@ export class OrderFormComponent implements OnInit {
     taxApplied: 0,
     weight: 0,
     messureUnit: '',
-    createdOn: ''
+    createdOn: '',
+    favourite: false
   };
 
   regForm: FormGroup;

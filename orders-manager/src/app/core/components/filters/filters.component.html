@@ -1,4 +1,4 @@
 
 <div>
-    <a href="" class="" *ngFor='let filter of filters'>{{filter}}()</a>
+    <a class="" *ngFor='let filter of filters' (click)='toggleFilterHandled(filter)'>{{filter | titlecase}}()</a>
 </div>

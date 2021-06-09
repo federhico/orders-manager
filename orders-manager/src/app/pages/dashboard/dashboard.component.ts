@@ -11,8 +11,9 @@ import { OrdersService } from 'src/app/core/services/orders.service';
 })
 export class DashboardComponent implements OnInit {
 
-  filters: string[] = ['Recently Added', 'Favorites', 'Completed', 'Draft', 'Deleted', 'Shared'];
+  filters: string[] = ['All', 'Recently Added', 'Favourites', 'On Hold', 'Urgent', 'Deleted'];
   orders: Orders[] = [];
+  ordersFiltered: Orders[] = [];
 
 
   constructor(public ordersService: OrdersService,  private router: Router) { }
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
   getOrders(): void {
     this.ordersService.get().subscribe((res: any): void => {
       this.orders = res.data;
+      this.ordersFiltered = this.orders;
     });
   }
 
@@ -36,6 +38,47 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['orderForm/' + item._id]);
   }
 
+  filterItem(filter: string): void {
+    switch (filter) {
+      case 'Recently Added': {
+        const arrayDate = this.orders.map((item: Orders) => {
+          return new Date(item.createdOn);
+        });
+        const maxDate = arrayDate.sort()[arrayDate.length - 3].getTime();
+        this.ordersFiltered = this.orders.filter((item: Orders) => {
+          return new Date(item.createdOn).getTime() >= maxDate;
+        });
+        break;
+      }
+      case 'Favourites': {
+        this.ordersFiltered = this.orders.filter((item: Orders) => {
+          return item.favourite;
+        });
+        break;
 
-
+      }
+      case 'Deleted': {
+        this.ordersFiltered = this.orders.filter((item: Orders) => {
+          return item.status === 'Deleted';
+        });
+        break;
+      }
+      case 'On Hold': {
+        this.ordersFiltered = this.orders.filter((item: Orders) => {
+          const status: string = item.status;
+          return status === 'On Hold';
+        });
+        break;
+      }
+      case 'Urgent': {
+        this.ordersFiltered = this.orders.filter((item: Orders) => {
+          return escape(item.status) === '%u200CUrgent';
+        });
+        break;
+      }
+      default:
+        this.ordersFiltered = this.orders;
+        break;
+    }
+  }
 }
