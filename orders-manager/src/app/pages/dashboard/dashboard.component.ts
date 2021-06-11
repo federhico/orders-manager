@@ -11,12 +11,20 @@ import { OrdersService } from 'src/app/core/services/orders.service';
 })
 export class DashboardComponent implements OnInit {
 
-  filters: string[] = ['All', 'Recently Added', 'Favourites', 'On Hold', 'Urgent', 'Deleted'];
+  // filters: string[] = ['All', 'Recently Added', 'Favourites', 'On Hold', 'Urgent', 'Deleted'];
   orders: Orders[] = [];
   ordersFiltered: Orders[] = [];
+  filter: any = [
+    { name: 'All', value: 0 },
+    { name: 'Recently Added', value: 0 },
+     { name: 'Favourites', value: 0 },
+    { name: 'On Hold', value: 0 },
+    { name: 'Urgent', value: 0 },
+     { name: 'Deleted', value: 0 }
+  ];
 
 
-  constructor(public ordersService: OrdersService,  private router: Router) { }
+  constructor(public ordersService: OrdersService, private router: Router) { }
 
   ngOnInit(): void {
     this.getOrders();
@@ -26,16 +34,48 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['orderForm']);
   }
 
+  countValue(filterName: string): void{
+    console.log(this.filter);
+    console.log(filterName);
+
+    this.filter.map((item: any) => {
+      if (item.name === filterName){
+        return item.value += 1;
+      }
+    });
+  }
+
   getOrders(): void {
     this.ordersService.get().subscribe((res: any): void => {
       this.orders = res.data;
       this.ordersFiltered = this.orders;
+      this.countValue('All');
+      this.countItemFilters();
     });
   }
 
   editItem(item: any): void {
     // Renderizar el order-form Component
     this.router.navigate(['orderForm/' + item._id]);
+  }
+
+  countItemFilters(): void {
+    // ------------------ hay un problema cuando agrego el favorito no me va a cambiar el contador de fav xq
+    // marcar como fav está en un componente hijo. --> Redux??
+    const arrayDate = this.orders.map((item: Orders) => {
+      return new Date(item.createdOn);
+    });
+    const maxDate = arrayDate.sort()[arrayDate.length - 3].getTime();
+    this.orders.forEach((item: Orders) => {
+      if (new Date(item.createdOn).getTime() >= maxDate) {
+        this.countValue('Recently Added');
+      }
+      if (item.favourite) {
+        this.countValue('Favourite');
+      }
+      this.countValue(item.status);
+    });
+
   }
 
   filterItem(filter: string): void {

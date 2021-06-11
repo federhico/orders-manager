@@ -7,14 +7,21 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class FiltersComponent implements OnInit {
 
-  @Input() filters: string[];
+  @Input() filters: any;
   @Output() filterEvent = new EventEmitter<any>();
+
 
 
   constructor() { }
 
   ngOnInit(): void {
-  }
+
+   }
+
+   ngOnChanges(): void  {
+    console.log(this.filters);
+
+   }
 
   toggleFilterHandled(filter: string): void {
     this.filterEvent.emit(filter);
