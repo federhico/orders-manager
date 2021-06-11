@@ -18,11 +18,6 @@ export class FiltersComponent implements OnInit {
 
    }
 
-   ngOnChanges(): void  {
-    console.log(this.filters);
-
-   }
-
   toggleFilterHandled(filter: string): void {
     this.filterEvent.emit(filter);
   }
