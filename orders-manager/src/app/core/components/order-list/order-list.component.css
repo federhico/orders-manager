@@ -21,3 +21,7 @@
 .deleted{
   background-color: rgb(226, 173, 173);
 }
+
+i {
+  cursor: pointer;
+}

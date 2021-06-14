@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { OrderMocks } from 'src/app/mocks/orders.mocks';
 import { Orders } from '../../models/Orders';
 import { OrdersService } from '../../services/orders.service';
 
@@ -13,6 +12,8 @@ export class OrderListComponent implements OnInit {
   @Input() orders: Orders[];
   @Output() editItemEvent = new EventEmitter<any>();
   @Output() deleteItemEvent = new EventEmitter<any>();
+  @Output() favouriteItemEvent = new EventEmitter<any>();
+
 
 
   constructor(private ordersService: OrdersService) {  }
@@ -28,7 +29,6 @@ export class OrderListComponent implements OnInit {
       const time = dateStr.createdOn.substring(11, 18);
       const millisecond = dateStr.createdOn.substring(19);
       const validDate = date + 'T' + time + '.' + millisecond;
-      console.log(validDate);
       return validDate;
 
     });
@@ -51,5 +51,18 @@ export class OrderListComponent implements OnInit {
   });
 }
 
+toggleFavouriteHandled(item: Orders): void {
+  item.favourite = !item.favourite;
+  this.ordersService.post(item).subcribe((res: Orders) => {
+    const findItem = this.orders.find((elem) => {
+      return elem._id === item._id;
+    });
+    if (findItem) {
+      findItem.favourite = !findItem.favourite;
+    }
+  }, (err: any) => {
+    console.error('Error message: ' + err.message);
+  });
+}
 
 }

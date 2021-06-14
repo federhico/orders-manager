@@ -1,4 +1,6 @@
 
-<div>
-    <a href="" class="" *ngFor='let filter of filters'>{{filter}}()</a>
+<div >
+    <a class="" *ngFor='let filter of filters' (click)='toggleFilterHandled(filter.name)'>
+      {{filter.name}}({{filter.value}})
+    </a>
 </div>
