@@ -9,7 +9,13 @@ import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OrderFormPageComponent } from './pages/order-form-page/order-form-page.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { StoreModule } from '@ngrx/store';
+import { environment } from 'src/environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
+import * as fromOrders from './core/components/order-list/store/order.reducer';
+import { OrdersEffects } from './core/components/order-list/store/order.effects';
 
 
 @NgModule({
@@ -44,7 +50,23 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         ]
       }
     }),
-    NgbModule
+    NgbModule,
+    StoreModule.forRoot({}, {
+      metaReducers: !environment.production ? [] : [],
+      runtimeChecks: {
+        strictActionImmutability: true,
+        strictStateImmutability: true
+      }
+    }),
+    EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule.forRoot({ routerState: RouterState.Minimal }),
+    StoreRouterConnectingModule.forRoot(),
+    StoreModule.forFeature(
+      fromOrders.ordersFeatureKey,
+      fromOrders._orderReducer
+    ),
+    EffectsModule.forFeature([OrdersEffects])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }],
   bootstrap: [AppComponent],

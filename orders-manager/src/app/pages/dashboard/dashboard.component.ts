@@ -17,29 +17,26 @@ export class DashboardComponent implements OnInit {
   filter: any = [
     { name: 'All', value: 0 },
     { name: 'Recently Added', value: 0 },
-     { name: 'Favourites', value: 0 },
+    { name: 'Favourites', value: 0 },
     { name: 'On Hold', value: 0 },
     { name: 'Urgent', value: 0 },
-     { name: 'Deleted', value: 0 }
+    { name: 'Deleted', value: 0 }
   ];
 
 
   constructor(public ordersService: OrdersService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getOrders();
+    // this.getOrders();
   }
 
   addToggleHandled(): void {
     this.router.navigate(['orderForm']);
   }
 
-  countValue(filterName: string): void{
-    console.log(this.filter);
-    console.log(filterName);
-
+  countValue(filterName: string): void {
     this.filter.map((item: any) => {
-      if (item.name === filterName){
+      if (item.name === filterName) {
         return item.value += 1;
       }
     });
@@ -49,7 +46,13 @@ export class DashboardComponent implements OnInit {
     this.ordersService.get().subscribe((res: any): void => {
       this.orders = res.data;
       this.ordersFiltered = this.orders;
-      this.countValue('All');
+      // Revisar esto.
+      this.filter.map((item: any) => {
+        if (item.name === 'All') {
+          return item.value = this.orders.length;
+        }
+        return;
+      });
       this.countItemFilters();
     });
   }

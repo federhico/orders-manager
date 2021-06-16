@@ -92,7 +92,7 @@ export class OrderFormComponent implements OnInit {
       }
       else{
         this.orderService.put(this.order).subscribe((res: any) => {
-        console.log(res);
+
 
         alert('Order Edited');
         this.router.navigate(['/dashboard']);

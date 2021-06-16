@@ -9,5 +9,5 @@
   <button type="button" name="addToggle" id="addToggle" (click)='addToggleHandled()'
     class="btn btn-primary btn-block">New Order</button>
   <br>
-  <app-order-list [orders]='ordersFiltered' (editItemEvent)='editItem($event)'></app-order-list>
+  <app-order-list  (editItemEvent)='editItem($event)'></app-order-list>
 </section>
