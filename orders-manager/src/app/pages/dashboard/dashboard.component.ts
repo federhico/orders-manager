@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.reducer';
 import { Orders } from 'src/app/core/models/Orders';
 import { OrdersService } from 'src/app/core/services/orders.service';
-
+import * as OrderActions from '../../core/components/order-list/store/order.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,10 +26,19 @@ export class DashboardComponent implements OnInit {
   ];
 
 
-  constructor(public ordersService: OrdersService, private router: Router) { }
+  constructor(public ordersService: OrdersService,
+              private router: Router,
+              private store: Store<AppState>) {
+                this.store.select('orders').subscribe(res => {
+                  console.log(res);
+                  this.orders = res;
+                });
+              }
 
   ngOnInit(): void {
     // this.getOrders();
+    this.store.dispatch(OrderActions.loadOrders());
+
   }
 
   addToggleHandled(): void {

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+
 import { Orders } from '../../models/Orders';
 import { OrdersService } from '../../services/orders.service';
 import * as OrderAction from '../order-list/store/order.actions';
@@ -17,17 +19,12 @@ export class OrderListComponent implements OnInit {
   @Output() editItemEvent = new EventEmitter<any>();
   @Output() deleteItemEvent = new EventEmitter<any>();
   @Output() favouriteItemEvent = new EventEmitter<any>();
-  orders$ = this.store.select('orders');
 
 
   constructor(private ordersService: OrdersService,
-              private store: Store<OrdersState>) { }
+             ) { }
 
   ngOnInit(): void {
-    console.log('Probando');
-    this.store.dispatch(OrderAction.loadOrders());
-    console.log(this.orders$);
-
   }
 
   // tslint:disable-next-line: use-lifecycle-interface

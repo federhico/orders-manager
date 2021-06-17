@@ -51,22 +51,11 @@ import { OrdersEffects } from './core/components/order-list/store/order.effects'
       }
     }),
     NgbModule,
-    StoreModule.forRoot({}, {
-      metaReducers: !environment.production ? [] : [],
-      runtimeChecks: {
-        strictActionImmutability: true,
-        strictStateImmutability: true
-      }
+    StoreModule.forRoot({ordersRedux: fromOrders._orderReducer}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
     }),
-    EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule.forRoot({ routerState: RouterState.Minimal }),
-    StoreRouterConnectingModule.forRoot(),
-    StoreModule.forFeature(
-      fromOrders.ordersFeatureKey,
-      fromOrders._orderReducer
-    ),
-    EffectsModule.forFeature([OrdersEffects])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }],
   bootstrap: [AppComponent],

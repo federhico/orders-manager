@@ -14,7 +14,7 @@ export class OrderReduxService {
   constructor(private store: Store<Orders>) { }
 
   public loadOrders(): void {
-    this.store.dispatch(OrderActions.loadOrders());
+    // this.store.dispatch(OrderActions.loadOrders());
   }
 
   public getOrderList$(): Observable<OrdersState> {
