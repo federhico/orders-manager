@@ -5,6 +5,7 @@ import { AppState } from '../../app.reducer';
 import { Orders } from 'src/app/core/models/Orders';
 import { OrdersService } from 'src/app/core/services/orders.service';
 import * as OrderActions from '../../core/components/order-list/store/order.actions';
+import { OrdersState } from 'src/app/core/components/order-list/store/order.reducer';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,18 +32,33 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getOrders();
-    this.store.select('orders').subscribe(res => {
-      this.orders = res;
-      this.ordersFiltered = this.orders;
-      // Revisar esto.
-      this.filter.map((item: any) => {
-        if (item.name === 'All') {
-          return item.value = this.orders.length;
-        }
-        return;
-      });
-      this.countItemFilters();
+    this.store.dispatch(OrderActions.loadOrders());
+    this.store.select('orders').subscribe(({orders}) => {
+      if (orders.length !== 0) {
+        this.orders = orders;
+        this.ordersFiltered = this.orders;
+        // Revisar esto.
+        this.filter.map((item: any) => {
+          if (item.name === 'All') {
+            return item.value = this.orders.length;
+          }
+          return;
+        });
+        this.countItemFilters();
+      }
     });
+    // this.store.select('orders').subscribe(res => {
+    //   this.orders = res;
+      // this.ordersFiltered = this.orders;
+      // // Revisar esto.
+      // this.filter.map((item: any) => {
+      //   if (item.name === 'All') {
+      //     return item.value = this.orders.length;
+      //   }
+      //   return;
+      // });
+      // this.countItemFilters();
+    // });
 
 
   }

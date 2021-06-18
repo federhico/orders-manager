@@ -33,7 +33,7 @@ export const ordersInitialState: OrdersState = {
   error: null
 };
 export interface OrdersState {
-  orders: Orders[]
+  orders: Orders[];
   error: any;
 }
 
@@ -45,32 +45,33 @@ export const _orderReducer = createReducer(
   on(OrdersAction.loadOrders, state => state),
   on(
     OrdersAction.loadOrdersSuccess,
-    (state, { orderList }) => {
-      return {
-
+    (state, { orderList }) => ({
         ...state,
-        orders: { ...state, list: orderList }
-      };
-    }
-  ),
-  on(OrdersAction.loadOrdersError, state => state),
-  on(OrdersAction.addOrder, (state, { newOrder }) => {
-    return [...state, newOrder];
-  }),
-  on(OrdersAction.editOrder, (state, { edittedOrder }) => {
-    return state.map((item: Orders) => {
-      if (item._id === edittedOrder._id) {
-        return edittedOrder;
-      }
-      else{
-        return item;
-      }
-    });
-  }),
+        orders: [...orderList] ,
+        error: null
+      })),
+  on(OrdersAction.loadOrdersError, (state, {payload}) => ({
+      ...state,
+      error: payload
+  })),
+
+  // on(OrdersAction.addOrder, (state, { newOrder }) => {
+  //   return [...state, newOrder];
+  // }),
+  // on(OrdersAction.editOrder, (state, { edittedOrder }) => {
+  //   return state.map((item: Orders) => {
+  //     if (item._id === edittedOrder._id) {
+  //       return edittedOrder;
+  //     }
+  //     else{
+  //       return item;
+  //     }
+  //   });
+  // }),
 
 
 );
 
-export function orderReducer(state: Orders[] | undefined, action: Action) {
+export function orderReducer(state: OrdersState | undefined, action: Action) {
   return _orderReducer(state, action);
 }

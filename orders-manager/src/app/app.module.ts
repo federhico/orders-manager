@@ -13,6 +13,8 @@ import { StoreModule } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import * as AppReducer from './app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { OrdersEffects } from './core/components/order-list/store/order.effects';
 
 
 
@@ -54,6 +56,8 @@ import * as AppReducer from './app.reducer';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
+    EffectsModule.forRoot([OrdersEffects])
+
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }],
   bootstrap: [AppComponent],
