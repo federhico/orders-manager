@@ -13,7 +13,6 @@ import * as OrderActions from '../../core/components/order-list/store/order.acti
 })
 export class DashboardComponent implements OnInit {
 
-  // filters: string[] = ['All', 'Recently Added', 'Favourites', 'On Hold', 'Urgent', 'Deleted'];
   orders: Orders[] = [];
   ordersFiltered: Orders[] = [];
   filter: any = [
@@ -28,16 +27,15 @@ export class DashboardComponent implements OnInit {
 
   constructor(public ordersService: OrdersService,
               private router: Router,
-              private store: Store<AppState>) {
-                this.store.select('orders').subscribe(res => {
-                  console.log(res);
-                  this.orders = res;
-                });
-              }
+              private store: Store<AppState>) { }
 
   ngOnInit(): void {
     // this.getOrders();
-    this.store.dispatch(OrderActions.loadOrders());
+    this.store.select('orders').subscribe(res => {
+      console.log(res);
+      this.orders = res;
+    });
+
 
   }
 

@@ -22,9 +22,14 @@ export class OrderListComponent implements OnInit {
 
 
   constructor(private ordersService: OrdersService,
+              private store: Store<AppState>
              ) { }
 
   ngOnInit(): void {
+    this.store.select('orders').subscribe(res => {
+      console.log(res);
+      this.orders = res;
+    });
   }
 
   // tslint:disable-next-line: use-lifecycle-interface

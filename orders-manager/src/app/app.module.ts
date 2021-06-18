@@ -11,11 +11,9 @@ import { OrderFormPageComponent } from './pages/order-form-page/order-form-page.
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
-import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
-import * as fromOrders from './core/components/order-list/store/order.reducer';
-import { OrdersEffects } from './core/components/order-list/store/order.effects';
+import * as AppReducer from './app.reducer';
+
 
 
 @NgModule({
@@ -51,7 +49,7 @@ import { OrdersEffects } from './core/components/order-list/store/order.effects'
       }
     }),
     NgbModule,
-    StoreModule.forRoot({ordersRedux: fromOrders._orderReducer}),
+    StoreModule.forRoot(AppReducer.appReducers),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode

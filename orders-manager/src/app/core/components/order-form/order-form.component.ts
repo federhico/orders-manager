@@ -87,6 +87,8 @@ export class OrderFormComponent implements OnInit {
           this.order.createdOn = stringDate.toString();
         }
         this.authService.user$.subscribe((res: any) => {
+          console.log(res);
+
           this.order.sender.name = res.name;
         });
         // Aplicando REDUX
