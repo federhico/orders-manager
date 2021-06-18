@@ -19,23 +19,19 @@ export class OrderListComponent implements OnInit {
   @Output() editItemEvent = new EventEmitter<any>();
   @Output() deleteItemEvent = new EventEmitter<any>();
   @Output() favouriteItemEvent = new EventEmitter<any>();
+  showOrders: Orders[] = [];
 
 
   constructor(private ordersService: OrdersService,
-              private store: Store<AppState>
              ) { }
 
   ngOnInit(): void {
-    this.store.select('orders').subscribe(res => {
-      console.log(res);
-      this.orders = res;
-    });
   }
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnChanges(): void {
-    this.orders.sort((a: any) => a.status === 'Deleted' ? 0 : -1);
-    this.orders.map((dateStr: Orders) => {
+    this.showOrders = this.orders.slice().sort((a: any) => a.status === 'Deleted' ? 0 : -1);
+    this.showOrders.map((dateStr: Orders) => {
       const date = dateStr.createdOn.substring(0, 10);
       const time = dateStr.createdOn.substring(11, 18);
       const millisecond = dateStr.createdOn.substring(19);

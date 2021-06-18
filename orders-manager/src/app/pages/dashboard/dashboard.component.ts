@@ -32,8 +32,16 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     // this.getOrders();
     this.store.select('orders').subscribe(res => {
-      console.log(res);
       this.orders = res;
+      this.ordersFiltered = this.orders;
+      // Revisar esto.
+      this.filter.map((item: any) => {
+        if (item.name === 'All') {
+          return item.value = this.orders.length;
+        }
+        return;
+      });
+      this.countItemFilters();
     });
 
 
@@ -74,10 +82,10 @@ export class DashboardComponent implements OnInit {
   countItemFilters(): void {
     // ------------------ hay un problema cuando agrego el favorito no me va a cambiar el contador de fav xq
     // marcar como fav está en un componente hijo. --> Redux??
-    const arrayDate = this.orders.map((item: Orders) => {
+    const arrayDate = this.orders.slice().map((item: Orders) => {
       return new Date(item.createdOn);
     });
-    const maxDate = arrayDate.sort()[arrayDate.length - 3].getTime();
+    const maxDate = arrayDate.sort()[arrayDate.length - 1].getTime();
     this.orders.forEach((item: Orders) => {
       if (new Date(item.createdOn).getTime() >= maxDate) {
         this.countValue('Recently Added');
@@ -96,7 +104,7 @@ export class DashboardComponent implements OnInit {
         const arrayDate = this.orders.map((item: Orders) => {
           return new Date(item.createdOn);
         });
-        const maxDate = arrayDate.sort()[arrayDate.length - 3].getTime();
+        const maxDate = arrayDate.sort()[arrayDate.length -1].getTime();
         this.ordersFiltered = this.orders.filter((item: Orders) => {
           return new Date(item.createdOn).getTime() >= maxDate;
         });

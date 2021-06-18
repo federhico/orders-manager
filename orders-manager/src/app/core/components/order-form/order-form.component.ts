@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.reducer';
+import { IUserInterface } from '../../models/ISender';
 import { Orders } from '../../models/Orders';
 import { OrdersService } from '../../services/orders.service';
 import * as OrderAction from '../order-list/store/order.actions';
@@ -16,15 +17,16 @@ import * as OrderAction from '../order-list/store/order.actions';
 })
 export class OrderFormComponent implements OnInit {
 
+  userSender: IUserInterface = {
+    id: 0,
+    name: ''
+  };
   order: Orders = {
     _id: '',
     title: '',
     description: '',
     status: '',
-    sender: {
-      id: 0,
-      name: ''
-    },
+    sender: this.userSender,
     destinationAddress: '',
     destinationCity: '',
     destinationCountry: '',
@@ -87,13 +89,12 @@ export class OrderFormComponent implements OnInit {
           this.order.createdOn = stringDate.toString();
         }
         this.authService.user$.subscribe((res: any) => {
-          console.log(res);
-
-          this.order.sender.name = res.name;
+          this.userSender.name = res.name;
+          this.store.dispatch(OrderAction.addOrder({newOrder: this.order}));
+          this.router.navigate(['/dashboard']);
         });
         // Aplicando REDUX
-        this.store.dispatch(OrderAction.addOrder({newOrder: this.order}));
-        this.router.navigate(['/dashboard']);
+
 
 
         // this.orderService.post(this.order).subscribe((res: any) => {

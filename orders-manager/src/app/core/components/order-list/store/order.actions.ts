@@ -11,7 +11,8 @@ export const loadOrdersSuccess = createAction(
 );
 
 export const loadOrdersError = createAction(
-  '[Order] Get Orders Error'
+  '[Order] Get Orders Error',
+  props<{ payload: any }>()
 );
 
 export const addOrder = createAction(
