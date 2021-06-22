@@ -54,21 +54,22 @@ export const _orderReducer = createReducer(
       ...state,
       error: payload
   })),
-
-  // on(OrdersAction.addOrder, (state, { newOrder }) => {
-  //   return [...state, newOrder];
-  // }),
-  // on(OrdersAction.editOrder, (state, { edittedOrder }) => {
-  //   return state.map((item: Orders) => {
-  //     if (item._id === edittedOrder._id) {
-  //       return edittedOrder;
-  //     }
-  //     else{
-  //       return item;
-  //     }
-  //   });
-  // }),
-
+  on(OrdersAction.addOrder, (state, {newOrder}) => ({
+    ...state,
+    orders: [...state.orders, newOrder],
+    error: null
+  })),
+  on(OrdersAction.editOrder, (state, {edittedOrder}) => ({
+    ...state,
+    orders: state.orders.map((item: Orders) => {
+      if (item._id === edittedOrder._id) {
+        return edittedOrder;
+      }
+      else{
+        return item;
+      }}),
+      error: null
+  }))
 
 );
 

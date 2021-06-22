@@ -93,27 +93,11 @@ export class OrderFormComponent implements OnInit {
           this.store.dispatch(OrderAction.addOrder({newOrder: this.order}));
           this.router.navigate(['/dashboard']);
         });
-        // Aplicando REDUX
-
-
-
-        // this.orderService.post(this.order).subscribe((res: any) => {
-        //   alert('New Order Created');
-        //   this.router.navigate(['/dashboard']);
-        // });
       }
       else{
-        // Aplicando REDUX
         this.store.dispatch(OrderAction.editOrder( { edittedOrder: this.order } ));
         alert('Order Edited');
         this.router.navigate(['/dashboard']);
-
-      //   this.orderService.put(this.order).subscribe((res: any) => {
-
-
-        // alert('Order Edited');
-        // this.router.navigate(['/dashboard']);
-      // });
       }
     }
     else {
