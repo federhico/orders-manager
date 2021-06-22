@@ -16,14 +16,7 @@ export class DashboardComponent implements OnInit {
 
   orders: Orders[] = [];
   ordersFiltered: Orders[] = [];
-  filter: any = [
-    { name: 'All', value: 0 },
-    { name: 'Recently Added', value: 0 },
-    { name: 'Favourites', value: 0 },
-    { name: 'On Hold', value: 0 },
-    { name: 'Urgent', value: 0 },
-    { name: 'Deleted', value: 0 }
-  ];
+  filter: any;
 
 
   constructor(public ordersService: OrdersService,
@@ -37,6 +30,14 @@ export class DashboardComponent implements OnInit {
       if (orders.length !== 0) {
         this.orders = orders;
         this.ordersFiltered = this.orders;
+        this.filter = [
+          { name: 'All', value: 0 },
+          { name: 'Recently Added', value: 0 },
+          { name: 'Favourites', value: 0 },
+          { name: 'On Hold', value: 0 },
+          { name: 'Urgent', value: 0 },
+          { name: 'Deleted', value: 0 }
+        ];
         // Revisar esto.
         this.filter.map((item: any) => {
           if (item.name === 'All') {
@@ -47,20 +48,6 @@ export class DashboardComponent implements OnInit {
         this.countItemFilters();
       }
     });
-    // this.store.select('orders').subscribe(res => {
-    //   this.orders = res;
-      // this.ordersFiltered = this.orders;
-      // // Revisar esto.
-      // this.filter.map((item: any) => {
-      //   if (item.name === 'All') {
-      //     return item.value = this.orders.length;
-      //   }
-      //   return;
-      // });
-      // this.countItemFilters();
-    // });
-
-
   }
 
   addToggleHandled(): void {
