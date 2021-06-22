@@ -48,21 +48,22 @@ export class OrdersEffects {
   { dispatch: false }
   );
 
+
   public editOrders$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(OrderActions.editOrder),
-    concatLatestFrom(action => this.store.select('orders')),
-    tap(([action, orderCollection]) => {
-        this.httpClient.put('http://localhost:3001/orders' + '/' + orderCollection.orders[orderCollection.orders.length - 1]._id,
-        orderCollection.orders[orderCollection.orders.length - 1])
-        .subscribe((res: any) => {
-          // Sin esto no funciona
-          console.log('POSTED');
-         });
-    })
-  ),
-{ dispatch: false }
-);
+    this.actions$.pipe(
+      ofType(OrderActions.editOrder),
+      mergeMap((action) =>
+        this.httpClient.put('http://localhost:3001/orders' + '/' + action.edittedOrder._id, action.edittedOrder ).pipe(
+          map(res =>
+            OrderActions.loadOrders()
+          ),
+          catchError(err =>
+            of(OrderActions.loadOrdersError({payload: err}))
+          )
+        )
+      )
+    )
+  );
 
 
 }
