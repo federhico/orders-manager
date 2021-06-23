@@ -46,31 +46,45 @@ export const _orderReducer = createReducer(
   on(
     OrdersAction.loadOrdersSuccess,
     (state, { orderList }) => ({
-        ...state,
-        orders: [...orderList] ,
-        error: null
-      })),
-  on(OrdersAction.loadOrdersError, (state, {payload}) => ({
       ...state,
-      error: payload
+      orders: [...orderList],
+      error: null
+    })),
+  on(OrdersAction.loadOrdersError, (state, { payload }) => ({
+    ...state,
+    error: payload
   })),
-  on(OrdersAction.addOrder, (state, {newOrder}) => ({
+
+  on(OrdersAction.addOrder, state => state),
+  on(OrdersAction.addOrderSuccess, (state, { newOrder }) => ({
     ...state,
     orders: [...state.orders, newOrder],
     error: null
   })),
-  on(OrdersAction.editOrder, (state, {edittedOrder}) => ({
+  on(OrdersAction.addOrderError, (state, { payload }) => ({
+    ...state,
+    error: payload
+  })),
+
+  on(OrdersAction.editOrder, state => state),
+  on(OrdersAction.editOrderSuccess, (state, { edittedOrder }) => ({
     ...state,
     orders: state.orders.map((item: Orders) => {
       if (item._id === edittedOrder._id) {
         return edittedOrder;
       }
-      else{
+      else {
         return item;
-      }}),
-      error: null
+      }
+    }),
+    error: null
   })),
-  on(OrdersAction.delOrder, (state, {idOrder}) => ({
+  on(OrdersAction.editOrderError, (state, { payload }) => ({
+    ...state,
+    error: payload
+  })),
+
+  on(OrdersAction.delOrder, (state, { idOrder }) => ({
     ...state,
     orders: state.orders.map((item: Orders) => {
       if (item._id === idOrder) {
@@ -78,9 +92,11 @@ export const _orderReducer = createReducer(
       }
       return item;
     }),
-      error: null
+    error: null
   })),
-  on(OrdersAction.favOrder, (state, {idOrder}) => ({
+
+
+  on(OrdersAction.favOrder, (state, { idOrder }) => ({
     ...state,
     orders: state.orders.map((item: Orders) => {
       if (item._id === idOrder) {
@@ -88,7 +104,7 @@ export const _orderReducer = createReducer(
       }
       return item;
     }),
-      error: null
+    error: null
   }))
 
 );

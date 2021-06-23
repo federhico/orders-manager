@@ -33,21 +33,21 @@ export class OrdersEffects {
     )
   );
 
-  public addOrders$ = createEffect(() =>
+  public addOrder$ = createEffect(() =>
     this.actions$.pipe(
       ofType(OrderActions.addOrder),
-      concatLatestFrom(action => this.store.select('orders')),
-      tap(([action, orderCollection]) => {
-          this.httpClient.post('http://localhost:3001/orders', orderCollection.orders[orderCollection.orders.length - 1])
-          .subscribe((res: any) => {
-            // Sin esto no funciona
-            console.log('POSTED');
-           });
-      })
-    ),
-  { dispatch: false }
+      mergeMap((actions) =>
+        this.httpClient.post('http://localhost:3001/orders', actions.newOrder).pipe(
+          map(res =>
+            OrderActions.addOrderSuccess({newOrder: actions.newOrder})
+          ),
+          catchError(err =>
+            of(OrderActions.addOrderError({payload: err}))
+          )
+        )
+      )
+    )
   );
-
 
   public editOrders$ = createEffect(() =>
     this.actions$.pipe(
@@ -55,10 +55,10 @@ export class OrdersEffects {
       mergeMap((action) =>
         this.httpClient.put('http://localhost:3001/orders' + '/' + action.edittedOrder._id, action.edittedOrder ).pipe(
           map(res =>
-            OrderActions.loadOrders()
+            OrderActions.editOrderSuccess({ edittedOrder: action.edittedOrder })
           ),
           catchError(err =>
-            of(OrderActions.loadOrdersError({payload: err}))
+            of(OrderActions.editOrderError({payload: err}))
           )
         )
       )

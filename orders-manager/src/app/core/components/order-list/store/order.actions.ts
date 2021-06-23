@@ -20,9 +20,27 @@ export const addOrder = createAction(
   props<{ newOrder: Orders }>()
 );
 
+export const addOrderSuccess = createAction(
+  '[Order] Add Order Success',
+  props<{ newOrder: Orders }>()
+);
+
+export const addOrderError = createAction(
+  '[Order] Add Order Error',
+    props<{ payload: any }>()
+);
+
 export const editOrder = createAction(
   '[Order] Edit Order',
   props<{ edittedOrder: Orders }>()
+);
+export const editOrderSuccess = createAction(
+  '[Order] Edit Order Success',
+  props<{ edittedOrder: Orders }>()
+);
+export const editOrderError = createAction(
+  '[Order] Edit Order Error',
+  props<{ payload: any }>()
 );
 
 export const delOrder = createAction(
