@@ -23,7 +23,7 @@ export class OrderListComponent implements OnInit {
 
 
   constructor(private ordersService: OrdersService,
-             ) { }
+  ) { }
 
   ngOnInit(): void {
   }
@@ -46,30 +46,10 @@ export class OrderListComponent implements OnInit {
   }
 
   toggleRemoveHandled(item: any): void {
-    this.ordersService.delete(item._id).subscribe((res: Orders) => {
-      const findedItem = this.orders.find((findItem) => {
-        return findItem._id === item._id;
-      });
-      if (findedItem) {
-        findedItem.status = 'Deleted';
-      }
-    }, (err: any) => {
-      console.log('Message: ' + err.message);
-    });
+    this.deleteItemEvent.emit(item);
   }
 
   toggleFavouriteHandled(item: Orders): void {
-    item.favourite = !item.favourite;
-    this.ordersService.post(item).subcribe((res: Orders) => {
-      const findItem = this.orders.find((elem) => {
-        return elem._id === item._id;
-      });
-      if (findItem) {
-        findItem.favourite = !findItem.favourite;
-      }
-    }, (err: any) => {
-      console.error('Error message: ' + err.message);
-    });
+    this.favouriteItemEvent.emit(item);
   }
-
 }

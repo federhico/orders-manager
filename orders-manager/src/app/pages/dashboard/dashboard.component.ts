@@ -148,4 +148,24 @@ export class DashboardComponent implements OnInit {
         break;
     }
   }
+
+  deleteItem(item: Orders): void {
+    const findedItem = Object.assign({}, this.orders.find((x: Orders) => {
+      return x._id === item._id;
+    }));
+    if (findedItem) {
+      findedItem.status = 'Deleted';
+      this.store.dispatch(OrderActions.editOrder({ edittedOrder: findedItem}));
+    }
+  }
+
+  favouriteItem(item: Orders): void {
+    const findedItem = Object.assign({}, this.orders.find((x: Orders) => {
+      return x._id === item._id;
+    }));
+    if (findedItem) {
+      findedItem.favourite = !findedItem.favourite;
+      this.store.dispatch(OrderActions.editOrder({ edittedOrder: findedItem}));
+    }
+  }
 }
