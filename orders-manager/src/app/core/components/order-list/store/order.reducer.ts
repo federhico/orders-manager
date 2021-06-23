@@ -69,6 +69,26 @@ export const _orderReducer = createReducer(
         return item;
       }}),
       error: null
+  })),
+  on(OrdersAction.delOrder, (state, {idOrder}) => ({
+    ...state,
+    orders: state.orders.map((item: Orders) => {
+      if (item._id === idOrder) {
+        item.status = 'Deleted';
+      }
+      return item;
+    }),
+      error: null
+  })),
+  on(OrdersAction.favOrder, (state, {idOrder}) => ({
+    ...state,
+    orders: state.orders.map((item: Orders) => {
+      if (item._id === idOrder) {
+        item.favourite = !item.favourite;
+      }
+      return item;
+    }),
+      error: null
   }))
 
 );

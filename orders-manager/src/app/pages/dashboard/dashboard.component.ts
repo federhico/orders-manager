@@ -59,6 +59,10 @@ export class DashboardComponent implements OnInit {
       if (item.name === filterName) {
         return item.value += 1;
       }
+      // Borrar cuando funcione bien la BD
+      if (item.name === 'Urgent' && (escape(filterName) === '%u200CUrgent' )) {
+        return item.value += 1;
+      }
     });
   }
 
@@ -107,7 +111,7 @@ export class DashboardComponent implements OnInit {
         const arrayDate = this.orders.map((item: Orders) => {
           return new Date(item.createdOn);
         });
-        const maxDate = arrayDate.sort()[arrayDate.length -1].getTime();
+        const maxDate = arrayDate.sort()[arrayDate.length - 1].getTime();
         this.ordersFiltered = this.orders.filter((item: Orders) => {
           return new Date(item.createdOn).getTime() >= maxDate;
         });

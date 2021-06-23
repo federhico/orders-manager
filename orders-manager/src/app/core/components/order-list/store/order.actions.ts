@@ -30,3 +30,8 @@ export const delOrder = createAction(
   props<{ idOrder: string }>()
 );
 
+export const favOrder = createAction(
+  '[Order] Mark Favourite Order',
+  props<{ idOrder: string }>()
+);
+
