@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit {
         this.countValue('Recently Added');
       }
       if (item.favourite) {
-        this.countValue('Favourite');
+        this.countValue('Favourites');
       }
       this.countValue(item.status);
     });

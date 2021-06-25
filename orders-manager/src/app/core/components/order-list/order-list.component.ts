@@ -51,17 +51,6 @@ export class OrderListComponent implements OnInit {
 
   toggleFavouriteHandled(item: Orders): void {
     this.favouriteItemEvent.emit(item);
-    // item.favourite = !item.favourite;
-    // this.ordersService.post(item).subcribe((res: Orders) => {
-    //   const findItem = this.orders.find((elem) => {
-    //     return elem._id === item._id;
-    //   });
-    //   if (findItem) {
-    //     findItem.favourite = !findItem.favourite;
-    //   }
-    // }, (err: any) => {
-    //   console.error('Error message: ' + err.message);
-    // });
   }
 
 }

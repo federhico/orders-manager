@@ -2,7 +2,7 @@
   <ul class="list-group block">
       <li class="list-group-item" *ngFor='let item of showOrders' [ngClass] ="{'deleted': item.status == 'Deleted'}" >
           <div class="row">
-              <a class="col-md-1"><i class="fas fa-star" [ngClass] ="{'greyned': !item.favourite}"
+              <a class="col-md-1"><i class="fas fa-star primary" [ngClass] ="{'greyned': !item.favourite}"
                 (click)='toggleFavouriteHandled(item)'></i></a>
               <div class="col-md-7 text-left">
                   <b>{{item.title | titlecase}}</b>

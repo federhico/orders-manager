@@ -1,14 +1,18 @@
 <div class="card">
   <div class="card-body">
-    <div class="row">
-      <div class="col-md-10">
-       <div class="form-group">
-         <input type="text" class="form-control" name="" id="" placeholder="Search">
-       </div>
+    <form [formGroup]='formInput' >
+      <div class="row">
+        <div class="col-md-10">
+          <div class="form-group">
+            <input type="text" class="form-control"
+            name="" id="" placeholder="Search"
+            (keyup)='searchTitle()' formControlName='name'>
+          </div>
+        </div>
+        <div class="col-md-2 search">
+          <a href=""><i class="fas fa-search greyned"></i></a>
+        </div>
       </div>
-      <div class="col-md-2 search">
-        <a href=""><i class="fas fa-search greyned"></i></a>
-      </div>
-    </div>
+    </form>
   </div>
 </div>

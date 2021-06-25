@@ -105,6 +105,16 @@ export const _orderReducer = createReducer(
       return item;
     }),
     error: null
+  })),
+  on(OrdersAction.searchOrder, (state, { title}) => ({
+    ...state,
+    orders: state.orders.filter((item: Orders) => {
+      if (item.title.includes(title)) {
+        return item;
+      }
+      return;
+    }),
+    error: null
   }))
 
 );

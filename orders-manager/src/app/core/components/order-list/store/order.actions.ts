@@ -53,3 +53,16 @@ export const favOrder = createAction(
   props<{ idOrder: string }>()
 );
 
+export const searchOrder = createAction(
+  '[Order] Search Order',
+  props<{ title: string }>()
+);
+export const searchOrderSuccess = createAction(
+  '[Order] Search Order Success',
+  props<{ title: string }>()
+);
+export const searchOrderError = createAction(
+  '[Order] Search Order Error',
+  props<{ payload: any }>()
+);
+
