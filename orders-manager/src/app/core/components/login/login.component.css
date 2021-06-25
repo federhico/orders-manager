@@ -8,8 +8,12 @@
   display: inline-block;
   padding-top: 10rem;
   padding-bottom: 10rem;
-  background-color: lightgrey;
+  background-color: #d5d9db;
+}
 
+.btn {
+  background-color: #456888;
+  color: white;
 }
 
 
