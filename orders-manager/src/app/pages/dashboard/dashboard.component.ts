@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   orders: Orders[] = [];
   ordersFiltered: Orders[] = [];
   filter: any;
+  
 
 
   constructor(public ordersService: OrdersService,
@@ -167,5 +168,13 @@ export class DashboardComponent implements OnInit {
       findedItem.favourite = !findedItem.favourite;
       this.store.dispatch(OrderActions.editOrder({ edittedOrder: findedItem}));
     }
+  }
+
+  search(title: string) {
+    this.store.dispatch(OrderActions.searchOrder({title, orders: this.orders}));
+    // if (title === '') {
+    //   this.store.dispatch(OrderActions.loadOrders());
+    // }
+
   }
 }
