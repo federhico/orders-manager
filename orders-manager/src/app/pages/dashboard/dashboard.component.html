@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <h1 class="col-md-8">Orders Manager</h1>
-      <app-search-box class="col-md-4 text-lg"></app-search-box>
+      <app-search-box class="col-md-4 text-lg" (searchEvent)='search($event)'></app-search-box>
     </div>
     <app-filters [filters]='filter' (filterEvent)='filterItem($event)'></app-filters>
   </div>

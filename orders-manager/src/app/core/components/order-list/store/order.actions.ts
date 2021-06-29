@@ -55,7 +55,7 @@ export const favOrder = createAction(
 
 export const searchOrder = createAction(
   '[Order] Search Order',
-  props<{ title: string }>()
+  props<{ title: string, orders: Orders[] }>()
 );
 export const searchOrderSuccess = createAction(
   '[Order] Search Order Success',

@@ -4,29 +4,7 @@ import { Orders } from 'src/app/core/models/Orders';
 import * as OrdersAction from './order.actions';
 
 
-// export const initialState: Orders[] = [     {
-//   _id: 'INICIAL',
-//   title: 'my beautifull order',
-//   description: 'Something about my order',
-//   status: 'On Hold',
-//   sender: {
-//       id: 100,
-//       name: 'Juan Arias'
-//   },
-//   destinationAddress: 'Saavedra 68',
-//   destinationCity: 'Villa Carlos Paz',
-//   destinationCountry: 'Argentina',
-//   destinationCoordinates: {
-//       lat: -123456,
-//       long: -54321
-//   },
-//   price: 100,
-//   taxApplied: 0,
-//   weight: 100,
-//   messureUnit: 'KG',
-//   createdOn: '2021-05-06:00:000:00',
-//   favourite: true
-// } ];
+
 export const ordersFeatureKey = 'State';
 export const ordersInitialState: OrdersState = {
   orders: [],
@@ -36,6 +14,7 @@ export interface OrdersState {
   orders: Orders[];
   error: any;
 }
+
 
 // tslint:disable-next-line: variable-name
 export const _orderReducer = createReducer(
@@ -106,9 +85,9 @@ export const _orderReducer = createReducer(
     }),
     error: null
   })),
-  on(OrdersAction.searchOrder, (state, { title}) => ({
+  on(OrdersAction.searchOrder, (state, { title, orders }) => ({
     ...state,
-    orders: state.orders.filter((item: Orders) => {
+    orders: orders.filter((item: Orders) => {
       if (item.title.includes(title)) {
         return item;
       }
