@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   orders: Orders[] = [];
   ordersFiltered: Orders[] = [];
   filter: any;
-  
+
 
 
   constructor(public ordersService: OrdersService,
@@ -28,9 +28,15 @@ export class DashboardComponent implements OnInit {
     // this.getOrders();
     this.store.dispatch(OrderActions.loadOrders());
     this.store.select('orders').subscribe(({orders}) => {
-      if (orders.length !== 0) {
-        this.orders = orders;
-        this.ordersFiltered = this.orders;
+      if (orders.length !== 0 ) {
+        if (this.orders.length === 0){
+          this.orders = orders;
+          console.log('paso 2');
+
+        }
+        this.ordersFiltered = orders;
+        console.log('Paso');
+
         this.filter = [
           { name: 'All', value: 0 },
           { name: 'Recently Added', value: 0 },
@@ -88,8 +94,6 @@ export class DashboardComponent implements OnInit {
   }
 
   countItemFilters(): void {
-    // ------------------ hay un problema cuando agrego el favorito no me va a cambiar el contador de fav xq
-    // marcar como fav está en un componente hijo. --> Redux??
     const arrayDate = this.orders.slice().map((item: Orders) => {
       return new Date(item.createdOn);
     });
