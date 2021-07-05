@@ -10,5 +10,10 @@ ng-template{
   padding-top: 5rem;
 }
 
+.btn{
+  background-color: #456888;
+  border-color: #456888;
+  color: #FFFFFF;
+}
 
 

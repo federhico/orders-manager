@@ -19,9 +19,10 @@
 }
 
 .deleted{
-  background-color: rgb(226, 173, 173);
+  background-color: #FF8086;
 }
 
 i {
   cursor: pointer;
 }
+

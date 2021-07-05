@@ -3,8 +3,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../app.reducer';
+import { IUserInterface } from '../../models/ISender';
 import { Orders } from '../../models/Orders';
 import { OrdersService } from '../../services/orders.service';
+import * as OrderAction from '../order-list/store/order.actions';
 
 @Component({
   selector: 'app-order-form',
@@ -13,15 +17,16 @@ import { OrdersService } from '../../services/orders.service';
 })
 export class OrderFormComponent implements OnInit {
 
+  userSender: IUserInterface = {
+    id: 0,
+    name: ''
+  };
   order: Orders = {
     _id: '',
     title: '',
     description: '',
     status: '',
-    sender: {
-      id: 0,
-      name: ''
-    },
+    sender: this.userSender,
     destinationAddress: '',
     destinationCity: '',
     destinationCountry: '',
@@ -49,6 +54,7 @@ export class OrderFormComponent implements OnInit {
               private router: Router,
               private datePipe: DatePipe,
               private authService: AuthService,
+              private store: Store<AppState>
   ) { }
 
   ngOnInit(): void {
@@ -83,20 +89,15 @@ export class OrderFormComponent implements OnInit {
           this.order.createdOn = stringDate.toString();
         }
         this.authService.user$.subscribe((res: any) => {
-          this.order.sender.name = res.name;
-        });
-        this.orderService.post(this.order).subscribe((res: any) => {
-          alert('New Order Created');
+          this.userSender.name = res.name;
+          this.store.dispatch(OrderAction.addOrder({newOrder: this.order}));
           this.router.navigate(['/dashboard']);
         });
       }
       else{
-        this.orderService.put(this.order).subscribe((res: any) => {
-        console.log(res);
-
+        this.store.dispatch(OrderAction.editOrder( { edittedOrder: this.order } ));
         alert('Order Edited');
         this.router.navigate(['/dashboard']);
-      });
       }
     }
     else {

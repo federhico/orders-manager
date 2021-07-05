@@ -69,8 +69,7 @@ export class ProfileComponent implements OnInit {
 
   addAddressToggle(): void{
     this.submitted = true;
-    console.log(this.addressForm.invalid);
-    console.log(this.addressForm.controls.address);
+
 
     if (this.addressForm.invalid) {
       return;

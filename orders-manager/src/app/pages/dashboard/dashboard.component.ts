@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.reducer';
 import { Orders } from 'src/app/core/models/Orders';
 import { OrdersService } from 'src/app/core/services/orders.service';
-
+import * as OrderActions from '../../core/components/order-list/store/order.actions';
+import { OrdersState } from 'src/app/core/components/order-list/store/order.reducer';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,35 +14,60 @@ import { OrdersService } from 'src/app/core/services/orders.service';
 })
 export class DashboardComponent implements OnInit {
 
-  // filters: string[] = ['All', 'Recently Added', 'Favourites', 'On Hold', 'Urgent', 'Deleted'];
   orders: Orders[] = [];
   ordersFiltered: Orders[] = [];
-  filter: any = [
-    { name: 'All', value: 0 },
-    { name: 'Recently Added', value: 0 },
-     { name: 'Favourites', value: 0 },
-    { name: 'On Hold', value: 0 },
-    { name: 'Urgent', value: 0 },
-     { name: 'Deleted', value: 0 }
-  ];
+  filter: any;
 
 
-  constructor(public ordersService: OrdersService, private router: Router) { }
+
+  constructor(public ordersService: OrdersService,
+              private router: Router,
+              private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    this.getOrders();
+    // this.getOrders();
+    this.store.dispatch(OrderActions.loadOrders());
+    this.store.select('orders').subscribe(({orders}) => {
+      if (orders.length !== 0 ) {
+        if (this.orders.length === 0){
+          this.orders = orders;
+          console.log('paso 2');
+
+        }
+        this.ordersFiltered = orders;
+        console.log('Paso');
+
+        this.filter = [
+          { name: 'All', value: 0 },
+          { name: 'Recently Added', value: 0 },
+          { name: 'Favourites', value: 0 },
+          { name: 'On Hold', value: 0 },
+          { name: 'Urgent', value: 0 },
+          { name: 'Deleted', value: 0 }
+        ];
+        // Revisar esto.
+        this.filter.map((item: any) => {
+          if (item.name === 'All') {
+            return item.value = this.orders.length;
+          }
+          return;
+        });
+        this.countItemFilters();
+      }
+    });
   }
 
   addToggleHandled(): void {
     this.router.navigate(['orderForm']);
   }
 
-  countValue(filterName: string): void{
-    console.log(this.filter);
-    console.log(filterName);
-
+  countValue(filterName: string): void {
     this.filter.map((item: any) => {
-      if (item.name === filterName){
+      if (item.name === filterName) {
+        return item.value += 1;
+      }
+      // Borrar cuando funcione bien la BD
+      if (item.name === 'Urgent' && (escape(filterName) === '%u200CUrgent' )) {
         return item.value += 1;
       }
     });
@@ -49,7 +77,13 @@ export class DashboardComponent implements OnInit {
     this.ordersService.get().subscribe((res: any): void => {
       this.orders = res.data;
       this.ordersFiltered = this.orders;
-      this.countValue('All');
+      // Revisar esto.
+      this.filter.map((item: any) => {
+        if (item.name === 'All') {
+          return item.value = this.orders.length;
+        }
+        return;
+      });
       this.countItemFilters();
     });
   }
@@ -60,18 +94,16 @@ export class DashboardComponent implements OnInit {
   }
 
   countItemFilters(): void {
-    // ------------------ hay un problema cuando agrego el favorito no me va a cambiar el contador de fav xq
-    // marcar como fav está en un componente hijo. --> Redux??
-    const arrayDate = this.orders.map((item: Orders) => {
+    const arrayDate = this.orders.slice().map((item: Orders) => {
       return new Date(item.createdOn);
     });
-    const maxDate = arrayDate.sort()[arrayDate.length - 3].getTime();
+    const maxDate = arrayDate.sort()[arrayDate.length - 1].getTime();
     this.orders.forEach((item: Orders) => {
       if (new Date(item.createdOn).getTime() >= maxDate) {
         this.countValue('Recently Added');
       }
       if (item.favourite) {
-        this.countValue('Favourite');
+        this.countValue('Favourites');
       }
       this.countValue(item.status);
     });
@@ -84,7 +116,7 @@ export class DashboardComponent implements OnInit {
         const arrayDate = this.orders.map((item: Orders) => {
           return new Date(item.createdOn);
         });
-        const maxDate = arrayDate.sort()[arrayDate.length - 3].getTime();
+        const maxDate = arrayDate.sort()[arrayDate.length - 1].getTime();
         this.ordersFiltered = this.orders.filter((item: Orders) => {
           return new Date(item.createdOn).getTime() >= maxDate;
         });
@@ -120,5 +152,33 @@ export class DashboardComponent implements OnInit {
         this.ordersFiltered = this.orders;
         break;
     }
+  }
+
+  deleteItem(item: Orders): void {
+    const findedItem = Object.assign({}, this.orders.find((x: Orders) => {
+      return x._id === item._id;
+    }));
+    if (findedItem) {
+      findedItem.status = 'Deleted';
+      this.store.dispatch(OrderActions.editOrder({ edittedOrder: findedItem}));
+    }
+  }
+
+  favouriteItem(item: Orders): void {
+    const findedItem = Object.assign({}, this.orders.find((x: Orders) => {
+      return x._id === item._id;
+    }));
+    if (findedItem) {
+      findedItem.favourite = !findedItem.favourite;
+      this.store.dispatch(OrderActions.editOrder({ edittedOrder: findedItem}));
+    }
+  }
+
+  search(title: string) {
+    this.store.dispatch(OrderActions.searchOrder({title, orders: this.orders}));
+    // if (title === '') {
+    //   this.store.dispatch(OrderActions.loadOrders());
+    // }
+
   }
 }

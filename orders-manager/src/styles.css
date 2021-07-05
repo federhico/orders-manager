@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+.danger{
+  color: #ee4854;
+}
+
+.light-danger {
+  color: #FF8086;
+}
+.secondary {
+  color: #A9BBC8;
+}
+
+.primary{
+  color: #659BEB;
+}
+
+.dark-primary{
+  color: #456888;
+}
