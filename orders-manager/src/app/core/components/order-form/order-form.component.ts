@@ -68,9 +68,9 @@ export class OrderFormComponent implements OnInit {
     this.regForm = this.formBuilder.group({
       title: [this.order.title, [Validators.required]],
       description: [this.order.description, [Validators.required]],
-      price: [this.order.price, [Validators.required, Validators.pattern('([0-9]{1,7})[.]([0-9]{2})')]],
-      tax: [this.order.taxApplied, [Validators.required, Validators.pattern('([0-9]{1,7})[.]([0-9]{2})')]],
-      weight: [this.order.weight, [Validators.required, Validators.pattern('([0-9]{1,7})[.]([0-9]{2})')]],
+      price: [this.order.price, [Validators.required, Validators.pattern('([0-9]{1,9}).?([0-9]{1,2})?')]],
+      tax: [this.order.taxApplied, [Validators.required, Validators.pattern('([0-9]{1,9}).?([0-9]{1,2})?')]],
+      weight: [this.order.weight, [Validators.required, Validators.pattern('([0-9]{1,9}).?([0-9]{1,2})?')]],
       mUnit: [this.order.messureUnit, [Validators.required]],
       status: [this.order.status, [Validators.required]],
       destAdress: [this.order.destinationAddress, [Validators.required]],
