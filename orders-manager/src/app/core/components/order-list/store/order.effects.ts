@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { Actions, createEffect, ofType , concatLatestFrom } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { EMPTY, of } from 'rxjs';
@@ -15,7 +16,8 @@ export class OrdersEffects {
   constructor(private actions$: Actions,
               private orderService: OrdersService,
               private httpClient: HttpClient,
-              private store: Store<AppState>) { }
+              private store: Store<AppState>,
+              public authService: AuthService) { }
 
   public loadOrders$ = createEffect(() =>
     this.actions$.pipe(
@@ -23,7 +25,11 @@ export class OrdersEffects {
       mergeMap(() =>
         this.httpClient.get<any>('http://localhost:3001/orders').pipe(
           map(res =>
-            OrderActions.loadOrdersSuccess({ orderList: res.data })
+            OrderActions.loadOrdersSuccess({ orderList: res.data.filter((x: any) => {
+              return this.authService.user$.subscribe((user: any) => {
+                return user.given_name === x.sender.name;
+              });
+            }) })
           ),
           catchError(err =>
             of(OrderActions.loadOrdersError({payload: err}))

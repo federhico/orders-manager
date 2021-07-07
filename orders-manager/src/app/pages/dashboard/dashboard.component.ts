@@ -26,16 +26,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getOrders();
+
     this.store.dispatch(OrderActions.loadOrders());
     this.store.select('orders').subscribe(({orders}) => {
       if (orders.length !== 0 ) {
         if (this.orders.length === 0){
           this.orders = orders;
-          console.log('paso 2');
-
         }
         this.ordersFiltered = orders;
-        console.log('Paso');
 
         this.filter = [
           { name: 'All', value: 0 },
@@ -45,7 +43,6 @@ export class DashboardComponent implements OnInit {
           { name: 'Urgent', value: 0 },
           { name: 'Deleted', value: 0 }
         ];
-        // Revisar esto.
         this.filter.map((item: any) => {
           if (item.name === 'All') {
             return item.value = this.orders.length;
@@ -165,7 +162,7 @@ export class DashboardComponent implements OnInit {
   }
 
   favouriteItem(item: Orders): void {
-    const findedItem = Object.assign({}, this.orders.find((x: Orders) => {
+    const findedItem = Object.assign({}, this.ordersFiltered.find((x: Orders) => {
       return x._id === item._id;
     }));
     if (findedItem) {
@@ -174,7 +171,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  search(title: string) {
+  search(title: string): void {
     this.store.dispatch(OrderActions.searchOrder({title, orders: this.orders}));
     // if (title === '') {
     //   this.store.dispatch(OrderActions.loadOrders());
