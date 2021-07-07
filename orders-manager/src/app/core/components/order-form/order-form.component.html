@@ -7,8 +7,8 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="title">Title<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input [(ngModel)]='order.title'  type="text" class="form-control" formControlName="title" [ngClass]="{'is-invalid': (regForm.controls.title.touched || submitted)
-                  && regForm.controls.title.errors}" value={{order.title}} onclick="this.select()"/>
+            <input [(ngModel)]='order.title' type="text" class="form-control" formControlName="title" [ngClass]="{'is-invalid': (regForm.controls.title.touched || submitted)
+                  && regForm.controls.title.errors}" value={{order.title}} onclick="this.select()" />
             <span class="text-danger"
               *ngIf="(regForm.controls.title.touched || submitted) && regForm.controls.title.errors?.required">
               Requiered
@@ -20,8 +20,9 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="description">Description<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input [(ngModel)]='order.description' type="text" class="form-control" formControlName="description" [ngClass]="{'is-invalid': (regForm.controls.description.touched || submitted)
-                  && regForm.controls.description.errors}" value={{order.description}}  onclick="this.select()" />
+            <input [(ngModel)]='order.description' type="text" class="form-control" formControlName="description"
+              [ngClass]="{'is-invalid': (regForm.controls.description.touched || submitted)
+                  && regForm.controls.description.errors}" value={{order.description}} onclick="this.select()" />
             <span class="text-danger"
               *ngIf="(regForm.controls.description.touched || submitted) && regForm.controls.description.errors?.required">
               Requiered
@@ -34,9 +35,9 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="status">Status<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <select  [(ngModel)]='order.status' name="status" class="form-control" formControlName="status" [ngClass]="{'is-invalid': (regForm.controls.status.touched || submitted)
+            <select [(ngModel)]='order.status' name="status" class="form-control" formControlName="status" [ngClass]="{'is-invalid': (regForm.controls.status.touched || submitted)
                   && regForm.controls.status.errors}">
-              <option *ngFor="let opt of status" >
+              <option *ngFor="let opt of status">
                 ‌{{ opt }}
               <option>
             </select>
@@ -52,8 +53,9 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="destAdress">Destination Adress<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input [(ngModel)]='order.destinationAddress' type="text" class="form-control" formControlName="destAdress" [ngClass]="{'is-invalid': (regForm.controls.destAdress.touched || submitted)
-                  && regForm.controls.destAdress.errors}" value={{order.destinationAddress}} onclick="this.select()"/>
+            <input [(ngModel)]='order.destinationAddress' type="text" class="form-control" formControlName="destAdress"
+              [ngClass]="{'is-invalid': (regForm.controls.destAdress.touched || submitted)
+                  && regForm.controls.destAdress.errors}" value={{order.destinationAddress}} onclick="this.select()" />
 
             <span class="text-danger"
               *ngIf="(regForm.controls.destAdress.touched || submitted) && regForm.controls.destAdress.errors?.required">
@@ -67,7 +69,8 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="destCity">Destination City<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input [(ngModel)]='order.destinationCity' type="text" class="form-control" formControlName="destCity" [ngClass]="{'is-invalid': (regForm.controls.destCity.touched || submitted)
+            <input [(ngModel)]='order.destinationCity' type="text" class="form-control" formControlName="destCity"
+              [ngClass]="{'is-invalid': (regForm.controls.destCity.touched || submitted)
                   && regForm.controls.destCity.errors}" value={{order.destinationCity}} onclick="this.select()" />
 
             <span class="text-danger"
@@ -82,8 +85,10 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="destCountry">Destination Country<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input [(ngModel)]='order.destinationCountry' type="text" class="form-control" formControlName="destCountry" [ngClass]="{'is-invalid': (regForm.controls.destCountry.touched || submitted)
-                  && regForm.controls.destCountry.errors}" value={{order.destinationCountry}} onclick="this.select()" />
+            <input [(ngModel)]='order.destinationCountry' type="text" class="form-control" formControlName="destCountry"
+              [ngClass]="{'is-invalid': (regForm.controls.destCountry.touched || submitted)
+                  && regForm.controls.destCountry.errors}" value={{order.destinationCountry}}
+              onclick="this.select()" />
 
             <span class="text-danger"
               *ngIf="(regForm.controls.destCountry.touched || submitted) && regForm.controls.destCountry.errors?.required">
@@ -97,11 +102,18 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="price">Price: $<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input [(ngModel)]='order.price' type="number" class="form-control" formControlName="price" [ngClass]="{'is-invalid': (regForm.controls.price.touched || submitted)
-                  && regForm.controls.price.errors}"  value={{order.price}} onclick="this.select()"/>
+            <input [(ngModel)]='order.price' type="text" min='0' max='100000000' class="form-control"
+              formControlName="price" [ngClass]="{'is-invalid': (regForm.controls.price.touched || submitted)
+                  && regForm.controls.price.errors}" value={{order.price}} onclick="this.select()" />
             <span class="text-danger"
-              *ngIf="(regForm.controls.price.touched || submitted) && regForm.controls.price.errors?.required">
+              *ngIf="(regForm.controls.price.touched || submitted)
+              &&(regForm.controls.price.errors?.required)">
               Requiered
+            </span>
+            <span class="text-danger"
+              *ngIf="(regForm.controls.price.touched || submitted)
+              && (regForm.controls.price.errors?.pattern)">
+              Requiered. Numeric field. 1-9 digits. Dot spread.
             </span>
           </div>
         </div>
@@ -111,12 +123,18 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="tax">TAX Applied: $<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input [(ngModel)]='order.taxApplied' type="number" class="form-control" formControlName="tax" [ngClass]="{'is-invalid': (regForm.controls.tax.touched || submitted)
+            <input [(ngModel)]='order.taxApplied' type="text" min='0' max='100000000' class="form-control"
+              formControlName="tax" [ngClass]="{'is-invalid': (regForm.controls.tax.touched || submitted)
                   && regForm.controls.tax.errors}" value={{order.taxApplied}} onclick="this.select()" />
 
             <span class="text-danger"
               *ngIf="(regForm.controls.tax.touched || submitted) && regForm.controls.tax.errors?.required">
               Requiered
+            </span>
+            <span class="text-danger"
+              *ngIf="(regForm.controls.tax.touched || submitted)
+              && (regForm.controls.tax.errors?.pattern)">
+              Requiered. Numeric field. 1-9 digits. Dot spread.
             </span>
           </div>
         </div>
@@ -126,12 +144,18 @@
           <label class="col-form-label col-sm-2 col-sm-offset-2" for="weight">Weight<span
               class="text-danger">*</span></label>
           <div class="col-sm-6">
-            <input [(ngModel)]='order.weight' type="number" class="form-control" formControlName="weight" [ngClass]="{'is-invalid': (regForm.controls.weight.touched || submitted)
+            <input [(ngModel)]='order.weight' type="text" min='0' max='100000000' class="form-control"
+              formControlName="weight" [ngClass]="{'is-invalid': (regForm.controls.weight.touched || submitted)
                   && regForm.controls.weight.errors}" value={{order.weight}} onclick="this.select()" />
 
             <span class="text-danger"
               *ngIf="(regForm.controls.weight.touched || submitted) && regForm.controls.weight.errors?.required">
               Requiered
+            </span>
+            <span class="text-danger"
+              *ngIf="(regForm.controls.weight.touched || submitted)
+              && (regForm.controls.weight.errors?.pattern)">
+              Requiered. Numeric field. 1-9 digits. 2 decimals. Dot spread.
             </span>
           </div>
         </div>
@@ -142,7 +166,7 @@
               class="text-danger">*</span></label>
           <div class="col-sm-6">
             <select [(ngModel)]='order.messureUnit' name="mUnit" class="form-control" formControlName="mUnit" [ngClass]="{'is-invalid': (regForm.controls.mUnit.touched || submitted)
-                  && regForm.controls.mUnit.errors}" >
+                  && regForm.controls.mUnit.errors}">
               <option *ngFor="let opt of mUnit">
                 ‌{{ opt }}
               <option>
@@ -157,9 +181,13 @@
         <div class="form-group row justify-content-center pt-3">
           <button class="btn btn-secondary col-md-3" (click)='cancelToggleHandled()'>Cancel</button>
           &nbsp;
-          <button type="submit" class="btn btn-primary col-md-3" (click)='submit(id.id)'> {{id.id === undefined ? 'Create' : 'Save'}} </button>
+          <button class="btn btn-primary col-md-3" (click)='submit(id.id)'> {{id.id === undefined ? 'Create' : 'Save'}}
+          </button>
         </div>
       </form>
     </div>
   </div>
+
+
+
 </div>

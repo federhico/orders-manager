@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getOrders();
-
     this.store.dispatch(OrderActions.loadOrders());
     this.store.select('orders').subscribe(({orders}) => {
       if (orders.length !== 0 ) {
@@ -34,6 +33,9 @@ export class DashboardComponent implements OnInit {
           this.orders = orders;
         }
         this.ordersFiltered = orders;
+        console.log(orders[0].status);
+        console.log(escape(orders[0].status));
+
 
         this.filter = [
           { name: 'All', value: 0 },

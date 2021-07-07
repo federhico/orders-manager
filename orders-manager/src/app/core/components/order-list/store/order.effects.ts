@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { EMPTY, of } from 'rxjs';
 import { catchError, concatMap, map, mergeMap, tap, } from 'rxjs/operators';
 import { AppState } from 'src/app/app.reducer';
+import { Orders } from 'src/app/core/models/Orders';
 import { OrdersService } from 'src/app/core/services/orders.service';
 import * as OrderActions from './order.actions';
 import { ordersInitialState } from './order.reducer';
@@ -25,11 +26,7 @@ export class OrdersEffects {
       mergeMap(() =>
         this.httpClient.get<any>('http://localhost:3001/orders').pipe(
           map(res =>
-            OrderActions.loadOrdersSuccess({ orderList: res.data.filter((x: any) => {
-              return this.authService.user$.subscribe((user: any) => {
-                return user.given_name === x.sender.name;
-              });
-            }) })
+            OrderActions.loadOrdersSuccess({ orderList: res.data })
           ),
           catchError(err =>
             of(OrderActions.loadOrdersError({payload: err}))
