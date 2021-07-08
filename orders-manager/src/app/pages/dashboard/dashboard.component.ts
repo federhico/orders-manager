@@ -25,7 +25,6 @@ export class DashboardComponent implements OnInit {
               private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    // this.getOrders();
     this.store.dispatch(OrderActions.loadOrders());
     this.store.select('orders').subscribe(({orders}) => {
       if (orders.length !== 0 ) {
@@ -169,7 +168,7 @@ export class DashboardComponent implements OnInit {
   }
 
   search(title: string): void {
-    this.store.dispatch(OrderActions.searchOrder({title, orders: this.orders}));
+    this.store.dispatch(OrderActions.searchOrder({title, orders: this.ordersFiltered}));
     // if (title === '') {
     //   this.store.dispatch(OrderActions.loadOrders());
     // }

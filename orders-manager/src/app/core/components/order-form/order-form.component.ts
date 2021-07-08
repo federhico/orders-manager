@@ -91,7 +91,7 @@ export class OrderFormComponent implements OnInit {
         }
         this.authService.user$.subscribe((res: any) => {
 
-          this.userSender.name = res.given_name;
+          this.userSender.name = res.name;
           this.store.dispatch(OrderAction.addOrder({newOrder: this.order}));
           this.router.navigate(['/dashboard']);
         });
