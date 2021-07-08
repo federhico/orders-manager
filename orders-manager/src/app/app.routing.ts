@@ -16,9 +16,12 @@ then(m => m.OrderFormPageModule) },
 loadChildren: () => import('./pages/profile/profile.module').
 then(m => m.ProfileModule), canActivate: [AuthGuard] },
 { path: 'login', component: LoginComponent },
+{ path: 'home',
+loadChildren: () => import('./pages/home/home.module').
+then(m => m.HomeModule) },
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/home',
     pathMatch: 'full'
   }
 ];
