@@ -29,14 +29,10 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(OrderActions.loadOrders());
     this.store.select('orders').subscribe(({orders}) => {
       if (orders.length !== 0 ) {
-        if (this.orders.length === 0){
+        if (this.orders.length === 0 || this.orders.length === this.ordersFiltered.length){
           this.orders = orders;
         }
         this.ordersFiltered = orders;
-        console.log(orders[0].status);
-        console.log(escape(orders[0].status));
-
-
         this.filter = [
           { name: 'All', value: 0 },
           { name: 'Recently Added', value: 0 },
@@ -88,7 +84,6 @@ export class DashboardComponent implements OnInit {
   }
 
   editItem(item: any): void {
-    // Renderizar el order-form Component
     this.router.navigate(['orderForm/' + item._id]);
   }
 
@@ -164,7 +159,7 @@ export class DashboardComponent implements OnInit {
   }
 
   favouriteItem(item: Orders): void {
-    const findedItem = Object.assign({}, this.ordersFiltered.find((x: Orders) => {
+    const findedItem = Object.assign({}, this.orders.find((x: Orders) => {
       return x._id === item._id;
     }));
     if (findedItem) {

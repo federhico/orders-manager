@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
+
 import { AppState } from '../../../app.reducer';
 import { IUserInterface } from '../../models/ISender';
 import { Orders } from '../../models/Orders';
@@ -89,7 +90,8 @@ export class OrderFormComponent implements OnInit {
           this.order.createdOn = stringDate.toString();
         }
         this.authService.user$.subscribe((res: any) => {
-          this.userSender.name = res.name;
+
+          this.userSender.name = res.given_name;
           this.store.dispatch(OrderAction.addOrder({newOrder: this.order}));
           this.router.navigate(['/dashboard']);
         });
