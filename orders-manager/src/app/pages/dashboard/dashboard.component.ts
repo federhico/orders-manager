@@ -21,17 +21,29 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(public ordersService: OrdersService,
-              private router: Router,
-              private store: Store<AppState>) { }
+    private router: Router,
+    private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.store.dispatch(OrderActions.loadOrders());
-    this.store.select('orders').subscribe(({orders}) => {
-      if (orders.length !== 0 ) {
-        if (this.orders.length === 0 || this.orders.length === this.ordersFiltered.length){
+    this.store.select('orders').subscribe(({ orders }) => {
+      if (orders.length !== 0) {
+        if (this.orders.length === 0 ||
+          (this.orders.length <= orders.length)) {
           this.orders = orders;
         }
-        this.ordersFiltered = orders;
+        if (this.ordersFiltered.length > 0) {
+          const ids = this.ordersFiltered.map((x: Orders) => x._id);
+          this.ordersFiltered = this.orders.filter((x: Orders) => {
+            if (ids.includes(x._id)) {
+              return x;
+            }
+            return;
+          });
+        }
+        else {
+          this.ordersFiltered = this.orders;
+        }
         this.filter = [
           { name: 'All', value: 0 },
           { name: 'Recently Added', value: 0 },
@@ -61,7 +73,7 @@ export class DashboardComponent implements OnInit {
         return item.value += 1;
       }
       // Borrar cuando funcione bien la BD
-      if (item.name === 'Urgent' && (escape(filterName) === '%u200CUrgent' )) {
+      if (item.name === 'Urgent' && (escape(filterName) === '%u200CUrgent')) {
         return item.value += 1;
       }
     });
@@ -153,7 +165,7 @@ export class DashboardComponent implements OnInit {
     }));
     if (findedItem) {
       findedItem.status = 'Deleted';
-      this.store.dispatch(OrderActions.editOrder({ edittedOrder: findedItem}));
+      this.store.dispatch(OrderActions.editOrder({ edittedOrder: findedItem }));
     }
   }
 
@@ -163,15 +175,16 @@ export class DashboardComponent implements OnInit {
     }));
     if (findedItem) {
       findedItem.favourite = !findedItem.favourite;
-      this.store.dispatch(OrderActions.editOrder({ edittedOrder: findedItem}));
+      this.store.dispatch(OrderActions.editOrder({ edittedOrder: findedItem }));
     }
   }
 
   search(title: string): void {
-    this.store.dispatch(OrderActions.searchOrder({title, orders: this.ordersFiltered}));
-    // if (title === '') {
-    //   this.store.dispatch(OrderActions.loadOrders());
-    // }
-
+    this.ordersFiltered = this.orders.filter((item: Orders) => {
+      if (item.title.toLocaleLowerCase().includes(title.toLocaleLowerCase())) {
+        return item;
+      }
+      return;
+    });
   }
 }
