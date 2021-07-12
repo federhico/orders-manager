@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
+
 import { AppState } from '../../../app.reducer';
 import { IUserInterface } from '../../models/ISender';
 import { Orders } from '../../models/Orders';
@@ -25,7 +26,7 @@ export class OrderFormComponent implements OnInit {
     _id: '',
     title: '',
     description: '',
-    status: '',
+    status: 'Urgent',
     sender: this.userSender,
     destinationAddress: '',
     destinationCity: '',
@@ -59,24 +60,29 @@ export class OrderFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.params;
+    console.log(this.id)
     if (this.id.id !== undefined) {
-      this.order = this.orderService.getOne(this.id.id).subscribe((res: any) => {
+      this.orderService.getOne(this.id.id).subscribe((res: any) => {
+        console.log(res);
         const putOrder = res.data;
         this.order = putOrder[0];
+        console.log(this.order);
       });
     }
+
     this.regForm = this.formBuilder.group({
       title: [this.order.title, [Validators.required]],
       description: [this.order.description, [Validators.required]],
-      price: [this.order.price, [Validators.required]],
-      tax: [this.order.taxApplied, [Validators.required]],
-      weight: [this.order.weight, [Validators.required]],
+      price: [this.order.price, [Validators.required, Validators.pattern('([0-9]{1,9}).?([0-9]{1,2})?')]],
+      tax: [this.order.taxApplied, [Validators.required, Validators.pattern('([0-9]{1,9}).?([0-9]{1,2})?')]],
+      weight: [this.order.weight, [Validators.required, Validators.pattern('([0-9]{1,9}).?([0-9]{1,2})?')]],
       mUnit: [this.order.messureUnit, [Validators.required]],
       status: [this.order.status, [Validators.required]],
       destAdress: [this.order.destinationAddress, [Validators.required]],
       destCity: [this.order.destinationCity, [Validators.required]],
       destCountry: [this.order.destinationCountry, [Validators.required]]
     });
+    console.log(this.regForm);
   }
 
   submit(id: string): void {
@@ -89,6 +95,7 @@ export class OrderFormComponent implements OnInit {
           this.order.createdOn = stringDate.toString();
         }
         this.authService.user$.subscribe((res: any) => {
+
           this.userSender.name = res.name;
           this.store.dispatch(OrderAction.addOrder({newOrder: this.order}));
           this.router.navigate(['/dashboard']);

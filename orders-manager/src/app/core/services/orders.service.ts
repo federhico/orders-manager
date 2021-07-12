@@ -22,6 +22,10 @@ export class OrdersService {
     return this.httpClient.get(this.apiUrl);
   }
 
+  getUser(user: string): any{
+    return this.httpClient.get(this.apiUrl);
+  }
+
   getOne(id: any): any {
     return this.httpClient.get(this.apiUrl + '/' +  id);
   }
