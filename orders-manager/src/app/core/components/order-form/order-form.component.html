@@ -37,7 +37,7 @@
           <div class="col-sm-6">
             <select [(ngModel)]='order.status' name="status" class="form-control" formControlName="status" [ngClass]="{'is-invalid': (regForm.controls.status.touched || submitted)
                   && regForm.controls.status.errors}">
-              <option *ngFor="let opt of status">
+              <option *ngFor="let opt of status ; let i = index" [selected]="order.status === opt || i===0">
                 ‌{{ opt }}
               <option>
             </select>

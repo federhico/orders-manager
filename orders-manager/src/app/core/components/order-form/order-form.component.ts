@@ -26,7 +26,7 @@ export class OrderFormComponent implements OnInit {
     _id: '',
     title: '',
     description: '',
-    status: '',
+    status: 'Urgent',
     sender: this.userSender,
     destinationAddress: '',
     destinationCity: '',
@@ -60,12 +60,16 @@ export class OrderFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.params;
+    console.log(this.id)
     if (this.id.id !== undefined) {
-      this.order = this.orderService.getOne(this.id.id).subscribe((res: any) => {
+      this.orderService.getOne(this.id.id).subscribe((res: any) => {
+        console.log(res);
         const putOrder = res.data;
         this.order = putOrder[0];
+        console.log(this.order);
       });
     }
+
     this.regForm = this.formBuilder.group({
       title: [this.order.title, [Validators.required]],
       description: [this.order.description, [Validators.required]],
@@ -78,6 +82,7 @@ export class OrderFormComponent implements OnInit {
       destCity: [this.order.destinationCity, [Validators.required]],
       destCountry: [this.order.destinationCountry, [Validators.required]]
     });
+    console.log(this.regForm);
   }
 
   submit(id: string): void {
